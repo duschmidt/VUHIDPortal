@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module>
+  <!-- Inherit our applications main module.                      -->
+  <inherits name='VUHIDPortalGroupID.VUHIDPortalModule' />
+
+  <!-- Specify the path to any remote services.                   -->
+  <servlet path="/VUHIDPortalModule/greet" class="VUHIDPortalGroupID.server.GreetingServiceImpl" />
+
+</module>

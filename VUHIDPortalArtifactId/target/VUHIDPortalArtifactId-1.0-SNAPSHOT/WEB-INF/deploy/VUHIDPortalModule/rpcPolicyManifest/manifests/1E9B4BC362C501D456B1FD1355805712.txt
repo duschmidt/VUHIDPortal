@@ -1,0 +1,2 @@
+serviceClass: VUHIDPortalGroupID.client.GreetingService
+path: 156E9AF6035F0906A8D3187D04AE0DC1.gwt.rpc
