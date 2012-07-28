@@ -1,3 +1,5 @@
+package VUHIDPortal;
+
 public class VUHIDPortal implements PIX, PDQ
 {
    //PIX
@@ -11,7 +13,7 @@ public class VUHIDPortal implements PIX, PDQ
    }
    public String[] PatientRegistryGetIdentifiersQuery(Patient P)
    {
-      String s = {"iaje", "ioaje", "oajea", "aoivja,ed"};
+      String[] s = new String[3];
       return s;
    }
    public boolean PatientRegistryDuplicatesResolved(Patient P1, Patient P2)
@@ -22,7 +24,8 @@ public class VUHIDPortal implements PIX, PDQ
    //PDQ
    public Patient[] PatientRegistryFindCandidatesQuery(Patient P)
    {
-      Patient Dustin = new Patient();
-      return Dustin;
+      Patient[] P_list = new Patient[5];
+      P_list[0] = new Patient();
+      return P_list;
    }
 }
