@@ -1,7 +1,7 @@
 /*
  * VUHIDSender.java: Basic outline of interface for sending requests to VUHID.
 */
-public VUHIDSender interface {
+public interface VUHIDSender {
 
     public String   getNewOVID() throws ServerErrorException;
     public String   getNewPVID() throws ServerErrorException;
