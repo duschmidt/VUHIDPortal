@@ -1,3 +1,5 @@
+package VUHIDPortal;
+
 //Interface for PDQ implementation
 public interface PDQ
 {

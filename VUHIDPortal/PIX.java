@@ -1,3 +1,5 @@
+package VUHIDPortal;
+
 public interface PIX
 {
    boolean PatientRegistryRecordRevised(Patient P);

@@ -1,3 +1,5 @@
+package VUHIDPortal.Dummies;
+
 public class Dummy_PDQ implements PDQ
 {
    public Patient[] PatientRegistryFindCandidatesQuery(Patient P)

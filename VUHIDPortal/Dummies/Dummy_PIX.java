@@ -1,3 +1,5 @@
+package VUHIDPortal.Dummies;
+
 public class Dummy_PIX implements PIX
 {
    public boolean PatientRegistryRecordRevised(Patient P)
