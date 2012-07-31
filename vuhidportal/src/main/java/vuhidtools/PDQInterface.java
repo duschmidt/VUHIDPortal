@@ -1,7 +1,7 @@
 package vuhidtools;
 
 //Interface for PDQ implementation
-public interface PDQ
+public interface PDQInterface
 {
    Patient[] PatientRegistryFindCandidatesQuery(Patient P);
 }

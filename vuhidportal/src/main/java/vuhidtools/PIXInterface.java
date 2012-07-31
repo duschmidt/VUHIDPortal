@@ -1,6 +1,6 @@
 package vuhidtools;
 
-public interface PIX
+public interface PIXInterface
 {
    boolean PatientRegistryRecordRevised(Patient P);
    boolean PatientRegistryRecordAdded(Patient P);
