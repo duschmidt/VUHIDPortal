@@ -22,7 +22,7 @@
     <property name="basedir" value="/Users/xianthrops/School/CS487/sp2012cs487-teamc/vuhidportal"/>
     <property name="java.endorsed.dirs" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home/lib/endorsed"/>
     <property name="os.arch" value="x86_64"/>
-    <property name="surefire.real.class.path" value="/Users/xianthrops/School/CS487/sp2012cs487-teamc/vuhidportal/target/surefire/surefirebooter6677476873770359760.jar"/>
+    <property name="surefire.real.class.path" value="/Users/xianthrops/School/CS487/sp2012cs487-teamc/vuhidportal/target/surefire/surefirebooter2834362538306983491.jar"/>
     <property name="java.io.tmpdir" value="/var/folders/bM/bMa0-x0xGvO5-TiKQtQv+++++TI/-Tmp-/"/>
     <property name="line.separator" value="
 "/>
@@ -46,7 +46,7 @@
     <property name="java.vm.specification.version" value="1.0"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home"/>
-    <property name="sun.java.command" value="/Users/xianthrops/School/CS487/sp2012cs487-teamc/vuhidportal/target/surefire/surefirebooter6677476873770359760.jar /Users/xianthrops/School/CS487/sp2012cs487-teamc/vuhidportal/target/surefire/surefire4515678469906656353tmp /Users/xianthrops/School/CS487/sp2012cs487-teamc/vuhidportal/target/surefire/surefire3017404791464089338tmp"/>
+    <property name="sun.java.command" value="/Users/xianthrops/School/CS487/sp2012cs487-teamc/vuhidportal/target/surefire/surefirebooter2834362538306983491.jar /Users/xianthrops/School/CS487/sp2012cs487-teamc/vuhidportal/target/surefire/surefire447203186593473501tmp /Users/xianthrops/School/CS487/sp2012cs487-teamc/vuhidportal/target/surefire/surefire9001806190231797264tmp"/>
     <property name="java.specification.vendor" value="Sun Microsystems Inc."/>
     <property name="user.language" value="en"/>
     <property name="awt.toolkit" value="apple.awt.CToolkit"/>
