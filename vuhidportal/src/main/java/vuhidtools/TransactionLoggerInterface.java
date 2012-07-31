@@ -1,6 +1,6 @@
 package vuhidtools;
 
-public interface PIXInterface
+public interface TransactionLoggerInterface
 {
    public void DeleteThisThing();
    //public void DeleteThisThingToo();
