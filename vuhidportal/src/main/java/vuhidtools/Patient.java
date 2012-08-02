@@ -18,6 +18,7 @@ public class Patient
       VUHID_ID = Vid;
       DOB = birthday;
    }
+
    public boolean CheckPatient()
    {
    
