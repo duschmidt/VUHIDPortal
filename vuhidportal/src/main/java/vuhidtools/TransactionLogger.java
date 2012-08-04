@@ -85,7 +85,7 @@ public class TransactionLogger implements TransactionLoggerInterface
 	{
 		DatabaseHandler.query("UPDATE Transactions SET Completed = true WHERE ID = " + ID);
 	}
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		Logger logger = new Logger();
 		Config.loadConfiguration();
@@ -93,5 +93,5 @@ public class TransactionLogger implements TransactionLoggerInterface
 		test[0] = "input msg";
 		test[1] = "output msg";
 		int ID = logger.log(1, 1, test);
-	}
+	}*/
 }
