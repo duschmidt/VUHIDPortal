@@ -13,7 +13,7 @@ public class VUHIDPortal{
 	}
 
 	public String getNewOVID() throws Exception {
-		return VSender.getNewOvid();
+		return VSender.getNewOVID();
 	}
 
 }
