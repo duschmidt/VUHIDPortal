@@ -130,6 +130,7 @@ public class VUHIDPortalPrototype
             }
 /*********************************************************************************************************/
         } catch (IOException e) {
+            System.out.println("ooops");
             e.printStackTrace();
         }
     }

@@ -83,7 +83,9 @@ public class AuthenticationManager
     private static void createKeyManagers(String keyStoreFileName, String keyStorePassword, String alias)
         throws CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException, KeyManagementException {
         //create Inputstream to keystore file
-        java.io.InputStream inputStream = new java.io.FileInputStream(keyStoreFileName);
+        java.io.InputStream inputStream = AuthenticationManager.class.getResourceAsStream(keyStoreFileName);
+        
+
         //create keystore object, load it with keystorefile data
         KeyStore keyStore = KeyStore.getInstance("JKS");
         keyStore.load(inputStream, keyStorePassword == null ? null : keyStorePassword.toCharArray());
@@ -105,7 +107,7 @@ public class AuthenticationManager
     private static void createTrustManagers(String trustStoreFileName, String trustStorePassword)
         throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
         //create Inputstream to truststore file
-        java.io.InputStream inputStream = new java.io.FileInputStream(trustStoreFileName);
+        java.io.InputStream inputStream = AuthenticationManager.class.getResourceAsStream(trustStoreFileName);
         //create keystore object, load it with truststorefile data
         KeyStore trustStore = KeyStore.getInstance("JKS");
         trustStore.load(inputStream, trustStorePassword == null ? null : trustStorePassword.toCharArray());
