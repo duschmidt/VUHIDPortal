@@ -1,6 +1,12 @@
 package vuhidtools;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSocketFactory;
+import java.io.IOException;
 import java.lang.Exception;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 /**
  * This class is the basic communication class to the VuHID server
@@ -8,9 +14,14 @@ import java.lang.Exception;
  * @version 1.1
  *
  *  Ver 1.1     First version that implements stub methods for team.
+ *      1.2     Added state final vars for Configuration and AuthenticationManager
+ *              Added code to getStatusOfID from Peter to make it real
  *
  */
 public class VUHIDSender implements VUHIDSenderInterface{
+
+    private static final Configuration config = new Configuration();
+    private static final AuthenticationManager am = new AuthenticationManager(config);
 
     private String vuhidServerURL = "\\testString\\forURL\\Server";
 
@@ -39,9 +50,51 @@ public class VUHIDSender implements VUHIDSenderInterface{
         return test;
     }
 
-    public int getStatusOfID(String ID) throws Exception {
+/*    public int getStatusOfID(String ID) throws Exception {
         int test = 0;
         return test;
+    }*/
+
+    public int getStatusOfID(String ID) throws Exception {
+        int test = 0;
+
+        HttpsURLConnection connection = null;  //define here so I can return part of it outside try
+        try {
+            // create key and trust managers, then initialize the ssl context with their data
+            SSLSocketFactory factory = am.getSSLSocketFactory();
+            // communicate with the server
+            //change this to incorporate passed PVID
+            //URL url = new URL("https://" + config.getVuhidServerHostName() + "/verify/0000000406190821.350181120000000");
+            URL url = new URL("https://" + config.getVuhidServerHostName() + "/verify/" + ID);
+
+            //define connection outside of try block so can return some of it as string
+            //HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
+            connection = (HttpsURLConnection) url.openConnection();
+
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("From", config.getFromHeaderValue());
+            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
+            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("Accept", "*/*");
+            connection.setRequestProperty("Content-Length", "32");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            connection.setSSLSocketFactory(factory);
+
+            System.out.println("RESPONSE CODE: " + connection.getResponseCode());
+            System.out.println("RESPONSE MESSAGE: " + connection.getResponseMessage());
+            System.out.println("RESPONSE HEADERS:");
+            for (Map.Entry<String, List<String>> header : connection.getHeaderFields().entrySet()) {
+                System.out.println("\t" + header.getKey() + ": " + header.getValue());
+            }
+            System.out.println("DONE");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //return test;
+        return connection.getResponseCode();
     }
 
     public int retireID(String ID, String reason) throws Exception {
