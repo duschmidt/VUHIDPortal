@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package vuhidtools.logger;
+package vuhidtools;
 
 import java.sql.*;
 import vuhidtools.Config;
@@ -33,7 +33,7 @@ public class DatabaseHandler
 		try
 	    {
 			Class.forName(Config.DATABASE_DRIVER);
-			if(db_connection == null) // only 1 connection
+			if(db_connection != null) // only 1 connection
 			{
 				db_connection = DriverManager.getConnection(Config.DATABASE_URL, Config.DATABASE_LOGIN, Config.DATABASE_PASSWORD);
 			}
@@ -48,25 +48,10 @@ public class DatabaseHandler
 	{
 		try
 	    {
-			if(stmt != null)
-			{
-				stmt.close();
-			}
-			if(rs != null)
-			{
-				rs.close();
-			}
+			stmt.close();
 			stmt = db_connection.createStatement();
-			String[] query_type = query.split("\\s+", 2);
-			if(query_type[0].toUpperCase().equals("SELECT"))
-			{
-				rs = stmt.executeQuery(query);
-				rs.next();
-			}
-			else
-			{
-				stmt.executeUpdate(query);
-			}
+			rs.close();
+			rs = stmt.executeQuery(query);
 	    }
 	    catch (Exception e)
 	    {

@@ -15,7 +15,7 @@
  package vuhidtools;
 
  /**
- * @author Long Phan
+ * @author Phan Duy Long
  * log: type - VUHID transaction number from 1 to 9; previous_transaction - ID of the previous related transaction,
  * 		there also an overloaded function which does not take previous_transaction; values is the list of inputs (from left to right) then the output,
  * 		for example VUHID transaction 5: values[0] is the VUHID ID, values[1] is the reason, values[2] is the returned status code.
@@ -24,6 +24,7 @@
  */
 public interface TransactionLoggerInterface
 {
-	public int newTransaction(int type, String previous_transaction, String[] values); // type - VUHID transaction number from 1 to 9, previous_transaction - ID of the previous related transaction,
+	public int log(int type, int previous_transaction, String[] values); // type - VUHID transaction number from 1 to 9, previous_transaction - ID of the previous related transaction,
+	public int log(int type, String[] values); // overload function without a previous transaction
 	public void setTransactionCompleted(int ID);
 }
