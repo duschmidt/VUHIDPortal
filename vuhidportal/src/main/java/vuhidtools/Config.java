@@ -44,7 +44,7 @@ public class Config extends PropertyLoader
 			Properties serverSettings = PropertyLoader.loadProperties(CONFIGURATION_FILE);
 
 			DATABASE_DRIVER = serverSettings.getProperty("Driver", "com.mysql.jdbc.Driver");
-			DATABASE_URL = serverSettings.getProperty("URL", "jdbc:mysql://localhost/l2jdb");
+			DATABASE_URL = serverSettings.getProperty("URL", "jdbc:mysql://localhost/vuhid-portal");
 			DATABASE_LOGIN = serverSettings.getProperty("Login", "root");
 			DATABASE_PASSWORD = serverSettings.getProperty("Password", "");
 			DATABASE_MAX_CONNECTIONS = Integer.parseInt(serverSettings.getProperty("MaximumDbConnections", "10"));
