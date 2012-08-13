@@ -112,7 +112,8 @@ full_install()
 	echo "#################################################"
 	echo ""
 	echo "VUHID Portal database"
-	$MYDB < ../sql/transactions.sql &> /dev/null
+	$MYDB < ../sql/vuhid-portal.sql &> /dev/null
+	$MYDBD < ../sql/transactions.sql &> /dev/null
 }
 
 # End of the script
@@ -130,7 +131,8 @@ clear
 configure
 
 # Open MySQL connections
-MYDB="$MYSQLPATH -h $DBHOST -u $DBUSER --password=$DBPASS -D $DBNAME"
+MYDBD="$MYSQLPATH -h $DBHOST -u $DBUSER --password=$DBPASS -D $DBNAME"
+MYDB="$MYSQLPATH -h $DBHOST -u $DBUSER --password=$DBPASS"
 
 # Ask action to do
 action_type
