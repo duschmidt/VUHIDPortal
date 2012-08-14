@@ -112,7 +112,7 @@ public class TransactionLogger implements TransactionLoggerInterface
 		DatabaseHandler.query("UPDATE `Transactions` SET `ReturnValue` = \'" + return_value + "\' WHERE `ID` = \'" + ID + "\'");
 		DatabaseHandler.query("UPDATE `Transactions` SET `Completed` = True WHERE `ID` = \'" + ID + "\'");
 	}
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		TransactionLogger logger = new TransactionLogger();
 		Config.loadConfiguration();
@@ -122,5 +122,5 @@ public class TransactionLogger implements TransactionLoggerInterface
 		test[2] = "output msg";
 		int ID = logger.newTransaction(7, "", test);
 		logger.setTransactionCompleted(ID, "Test return");
-	}
+	}*/
 }
