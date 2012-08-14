@@ -25,5 +25,5 @@
 public interface TransactionLoggerInterface
 {
 	public int newTransaction(int type, String previous_transaction, String[] values); // type - VUHID transaction number from 1 to 9, previous_transaction - ID of the previous related transaction,
-	public void setTransactionCompleted(int ID);
+	public void setTransactionCompleted(int ID, String return_value);
 }

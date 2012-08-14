@@ -93,8 +93,23 @@ public class TransactionLogger implements TransactionLoggerInterface
 	    	return -1;
 		}
 	}
-	public void setTransactionCompleted(int ID)
+	private static int getTransactionType(int ID)
 	{
+		DatabaseHandler.query("SELECT `Type` FROM `Transactions` WHERE `ID` = \'" + ID + "\'");
+		try
+		{
+			return DatabaseHandler.getResult().getInt(1);
+		}
+		catch (SQLException e)
+		{
+			System.err.println("Got an exception!");
+	    	System.err.println(e.getMessage());
+	    	return -1;
+		}
+	}
+	public void setTransactionCompleted(int ID, String return_value)
+	{
+		DatabaseHandler.query("UPDATE `Transactions` SET `ReturnValue` = \'" + return_value + "\' WHERE `ID` = \'" + ID + "\'");
 		DatabaseHandler.query("UPDATE `Transactions` SET `Completed` = True WHERE `ID` = \'" + ID + "\'");
 	}
 	/*public static void main(String[] args)
@@ -106,6 +121,6 @@ public class TransactionLogger implements TransactionLoggerInterface
 		test[1] = "input msg2";
 		test[2] = "output msg";
 		int ID = logger.newTransaction(7, "", test);
-		logger.setTransactionCompleted(ID);
+		logger.setTransactionCompleted(ID, "Test return");
 	}*/
 }
