@@ -22,7 +22,8 @@ public class VUHIDSender implements VUHIDSenderInterface{
 		return "0000003693664829.210573940000000";
 	}*/
 
-    public String getNewOVID() throws Exception {
+
+    public String getNewOVID() {
         String prefix = "0000003693664829"; //16 digits for prefix
         String checkDigits = "21057394";    //8 check digits
         String privacyClass = "0000000";    //OVID has 7 all zero privacy class digits

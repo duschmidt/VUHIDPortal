@@ -1,10 +1,13 @@
 package vuhidtools;
+class VUHIDException1 extends Exception{};
+class VUHIDException2 extends Exception{};
+
 /*
  * VUHIDSender.java: Basic outline of interface for sending requests to VUHID.
 */
 public interface VUHIDSenderInterface {
 
-    public String   getNewOVID() throws Exception;
+    public String   getNewOVID() throws VUHIDException1, VUHIDException2;
     public String   getNewPVID() throws Exception;
     public int      getStatusOfID(String ID) throws Exception;
     public int      retireID(String ID, String reason) throws Exception;
@@ -17,3 +20,5 @@ public interface VUHIDSenderInterface {
     public boolean  getIsWellFormed(String ID) throws Exception;
     public String   getPrivacyClass(String ID) throws Exception;
 };
+
+
