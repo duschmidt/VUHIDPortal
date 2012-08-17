@@ -15,6 +15,8 @@ CREATE TABLE `transactions` (
   `ReturnValue` longtext collate utf8_bin,
   `InputValue1` longtext collate utf8_bin NOT NULL,
   `InputValue2` longtext collate utf8_bin NOT NULL,
+  `InputValue3` longtext collate utf8_bin NOT NULL,
+  `InputValue4` longtext collate utf8_bin NOT NULL,
   PRIMARY KEY  (`ID`),
   KEY `Hash` (`Hash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin PACK_KEYS=0 AUTO_INCREMENT=1 ;
