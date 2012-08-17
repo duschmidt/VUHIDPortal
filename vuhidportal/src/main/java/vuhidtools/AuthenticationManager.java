@@ -22,7 +22,8 @@ import java.util.Enumeration;
  *
  */
 public class AuthenticationManager {
-    private static final boolean debug = true;
+    //private static final boolean debug = true; //turns on printKeyStoreInfo routine below
+    private static final boolean debug = false;
 
     private static KeyManager[] keyManagers;
 
