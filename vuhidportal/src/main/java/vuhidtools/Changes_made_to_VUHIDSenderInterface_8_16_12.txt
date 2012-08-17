@@ -1,0 +1,42 @@
+Robert Hickey
+8/16/12
+
+Changed Interface in VUHIDSenderInterface.java to match VuHID Transaction document.
+
+Changes detailed below:
+One of them implemented at this time (getNewPVID) and two not yet. 
+
+
+1) Changed Interface orig Team version to match VuHID Transaction doc
+From:
+public String getNewPVID() throws Exception { }
+
+To:
+public String getNewPVID(String privacyClass) throws Exception { }
+
+where "privacyClass" is a 7 digit ASCII encoded String with requested Privacy Class for new PVID
+As per communication with Barry Hieb, a suitable test Privacy Class is: 4000000
+
+TESTED: SUCCESS
+
+***********************
+2) Changed interface orig Team version to match VuHID Transaction doc
+From:
+public String[] getDataLocations(String ID, String response_uri) throws Exception;
+
+To:
+public String[] getDataLocations(String idToSearchFor) throws Exception;
+
+NOT IMPLEMENTED YET
+
+***********************
+3) Changed Interface orig Team version to match VuHID Transaction doc
+From:
+public String getReplacementID() throws Exception {
+
+To:
+public String getReplacementID(String idToReplace, String reason) {
+
+NOT IMPLEMENTED YET
+
+***********************
