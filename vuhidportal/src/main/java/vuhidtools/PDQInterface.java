@@ -1,7 +1,8 @@
 package vuhidtools;
+import java.util.ArrayList;
 
 //Interface for PDQ implementation
 public interface PDQInterface
 {
-   Patient[] PatientRegistryFindCandidatesQuery(Patient P);
+   ArrayList<Patient> PatientRegistryFindCandidatesQuery(Patient P);
 }
