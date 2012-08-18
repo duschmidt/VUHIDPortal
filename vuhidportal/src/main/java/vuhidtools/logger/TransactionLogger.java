@@ -22,9 +22,9 @@ import vuhidtools.Config;
 import vuhidtools.TransactionLoggerInterface;
 
 /**
- * This class is the Transaction Logger.<br>
- * It connect to the database.<br>
- * Transaction status: 0 - not started, 1 - started, 2 - completed.<br>
+ * This class is the Transaction Logger.
+ * It connect to the database.
+ * And log 14 transactions.
  */
 public class TransactionLogger implements TransactionLoggerInterface
 {
@@ -48,36 +48,51 @@ public class TransactionLogger implements TransactionLoggerInterface
 		switch(type)
 		{
 			case 1: // New OVID
+			case 10: // PIX PatientRegistryRecordRevised
+			case 11: // PIX PatientRegistryRecordAdded
+			case 12: // PIX PatientRegistryGetIdentifiersQuery
+			case 13: // PIX PatientRegistryDuplicatesResolved
+			case 14: // PDQ PatientRegistryFindCandidatesQuery
 			{
 				DatabaseHandler.query("INSERT INTO `Transactions` (`Hash`, `Type`, `Time`) VALUES (\'" + Hash + "\', '1', \'" + CurrentTimeStamp + "\')");
 				break;
 			}
 			case 2: // New PVID: values[0] is the PC
 			case 3: // VUHID ID Status: values[0] is the VUHID ID
+			case 6: // Request data locations: values[0] is the VUHID ID
 			{
 				DatabaseHandler.query("INSERT INTO `Transactions` (`Hash`, `Type`, `Time`, `InputValue1`) VALUES (\'" + Hash + "\', \'" + type + "\', \'" + CurrentTimeStamp + "\', \'" + values[0] + "\')");
 				break;
 			}
 			case 4: // Retire ID: values[0] is the VUHID ID, values[1] is the reason
 			case 5: // Terminate ID: values[0] is the VUHID ID, values[1] is the reason
-			case 6: // Request data locations: values[0] is the VUHID ID, values[1] is the reason
 			case 7: // Replace ID: values[0] is the VUHID ID, values[1] is the reason
 			{
 				DatabaseHandler.query("INSERT INTO `Transactions` (`Hash`, `Type`, `Time`, `InputValue1`, `InputValue2`) VALUES (\'" + Hash + "\', \'" + type + "\', \'" + CurrentTimeStamp + "\', \'" + values[0] + "\', \'" + values[1] + "\')");
 				break;
 			}
-			case 8: // VUHID Retirement/Termination Notice
+			case 8: // VUHID Retirement/Termination Notice: values[0] is the VUHID ID, values[1] is the action taken, values[2] is the URL of the EMPI that has requested the change, values[3] is the time stamp, values[4] is the reason
+			case 9: // VUHID Replacement Notice: values[0] is the old VUHID ID, values[1] is the new VUHID ID, values[2] is the URL of the EMPI that has requested the change, values[3] is the time stamp, values[4] is the reason
 			{
-				// TODO
-				break;
-			}
-			case 9: // VUHID Replacement Notice
-			{
-				// TODO
+				DatabaseHandler.query("INSERT INTO `Transactions` (`Hash`, `Type`, `Time`, `InputValue1`, `InputValue2`, `InputValue3`, `InputValue4`) VALUES (\'" + Hash + "\', \'" + type + "\', \'" + CurrentTimeStamp + "\', \'" + values[0] + "\', \'" + values[1] + "\')" + "\', \'" + values[2] + "\')" + "\', \'" + values[3] + "\')" + "\', \'" + values[4] + "\')");
 				break;
 			}
 		}
 		return getTransactionID(Hash);
+	}
+	public int newTransaction(int type, String[] values)
+	{
+		return newTransaction(type, "-1", values);
+	}
+	public int newTransaction(int type, String previous_transaction)
+	{
+		String[] values = new String[1];
+		values[0] = "";
+		return newTransaction(type, previous_transaction, values);
+	}
+	public int newTransaction(int type)
+	{
+		return newTransaction(type, "-1");
 	}
 	private static int getTransactionID(String Hash)
 	{
@@ -112,6 +127,10 @@ public class TransactionLogger implements TransactionLoggerInterface
 		DatabaseHandler.query("UPDATE `Transactions` SET `ReturnValue` = \'" + return_value + "\' WHERE `ID` = \'" + ID + "\'");
 		DatabaseHandler.query("UPDATE `Transactions` SET `Completed` = True WHERE `ID` = \'" + ID + "\'");
 	}
+	public void setTransactionCompleted(int ID)
+	{
+		setTransactionCompleted(ID, "");
+	}
 	/*public static void main(String[] args)
 	{
 		TransactionLogger logger = new TransactionLogger();
@@ -120,7 +139,7 @@ public class TransactionLogger implements TransactionLoggerInterface
 		test[0] = "input msg1";
 		test[1] = "input msg2";
 		test[2] = "output msg";
-		int ID = logger.newTransaction(7, "", test);
+		int ID = logger.newTransaction(1);
 		logger.setTransactionCompleted(ID, "Test return");
 	}*/
 }
