@@ -13,7 +13,8 @@ public class Configuration {
     private static String vuhidServerHostName = "testid.vuhid.org";
 
     // Keystore parameters
-    private static String keyStoreFileName = "Certificates/PSU-VUHID-Portal.keystore";
+    //PI: (CHANGED PATH; Cert..->cert...) private static String keyStoreFileName = "Certificates/PSU-VUHID-Portal.keystore";
+    private static String keyStoreFileName = "certificates/PSU-VUHID-Portal.keystore";
     private static String keyStorePassword = "phlegmaticone";
     private static String keystoreFormat = "JKS";  // DONE: make private, and implement getters and setters
 
@@ -22,7 +23,8 @@ public class Configuration {
     private static String keystoreCPVAlgorithm = "SunX509";  // DONE: make private, and implement getters and setters
 
     // Truststore parameters
-    private static String trustStoreFileName = "Certificates/GPII-CA.keystore";
+    //PI: (CHANGED PATH; Cert..->cert...) private static String trustStoreFileName = "Certificates/GPII-CA.keystore";
+    private static String trustStoreFileName = "certificates/GPII-CA.keystore";
     private static String trustStorePassword = "phlegmaticone";
     private static String trustStoreFormat = "JKS";  // DONE: make private, and implement getters and setters
     // Certification Path Validation Algorithm (CPVA) for the truststore
