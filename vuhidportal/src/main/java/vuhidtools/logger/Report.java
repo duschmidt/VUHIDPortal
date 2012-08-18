@@ -27,20 +27,14 @@ public class Report
 		try
 	    {
 			database.connect();
-			String[] inputLabels = new String[6];
+			String[] inputLabels = new String[3];
 			inputLabels[0] = "Number of IDs issued";
 			inputLabels[1] = "Number of searches performed";
-			inputLabels[2] = "Number of successful searches performed";
-			inputLabels[3] = "Number of failed searches performed";
-			inputLabels[4] = "Number of successful searches with provided VUHID ID performed";
-			inputLabels[5] = "Number of failed searches with provided VUHID ID performed";
+			inputLabels[2] = "Number of searches with provided VUHID ID performed";
 			String[][] inputContents = new String[6][2];
 			inputContents[0] = numberOfIDsIssued(Month, Year);
 			inputContents[1] = numberOfSearches(Month, Year);
-			inputContents[2] = numberOfSuccessfulSearches(Month, Year, true);
-			inputContents[3] = numberOfSuccessfulSearches(Month, Year, false);
-			inputContents[4] = numberOfSearchesWithID(Month, Year, true);
-			inputContents[5] = numberOfSearchesWithID(Month, Year, false);
+			inputContents[2] = numberOfSearchesWithID(Month, Year);
 			excel.setOutputFile(FileLocation);
 			excel.write(Month, Year, inputLabels, inputContents);
 	    }
@@ -55,9 +49,9 @@ public class Report
 		try
 	    {
 			String[] Result = new String[2];
-			database.query("SELECT COUNT(ID) FROM `Transactions` " + monthlyRange(Month, Year) + " AND (`Type` = '1' OR `Type` = '2')");
+			database.query("SELECT COUNT(ID) FROM `Transactions` " + monthlyRange(Month, Year) + " AND (`Type` = \'" + TransactionLogger.VUHIDNewOVID + "\' OR `Type` = \'" + TransactionLogger.VUHIDNewPVID + "\')");
 			Result[0] = database.getResult().getString(1); // Monthly total
-			database.query("SELECT COUNT(ID) FROM `Transactions` " + yearToDateRange(Month, Year) + " AND (`Type` = '1' OR `Type` = '2')");
+			database.query("SELECT COUNT(ID) FROM `Transactions` " + yearToDateRange(Month, Year) + " AND (`Type` = \'" + TransactionLogger.VUHIDNewOVID + "\' OR `Type` = \'" + TransactionLogger.VUHIDNewPVID + "\')");
 			Result[1] = database.getResult().getString(1); // Year-to-date total
 			return Result;
 	    }
@@ -73,9 +67,9 @@ public class Report
 		try
 	    {
 			String[] Result = new String[2];
-			database.query("SELECT COUNT(ID) FROM `Searches` " + monthlyRange(Month, Year));
+			database.query("SELECT COUNT(ID) FROM `Transactions` " + monthlyRange(Month, Year) + " AND (`Type` = \'" + TransactionLogger.PDQPatientRegistryFindCandidatesQuery + "\')");
 			Result[0] = database.getResult().getString(1); // Monthly total
-			database.query("SELECT COUNT(ID) FROM `Searches` " + yearToDateRange(Month, Year));
+			database.query("SELECT COUNT(ID) FROM `Transactions` " + yearToDateRange(Month, Year) + " AND (`Type` = \'" + TransactionLogger.PDQPatientRegistryFindCandidatesQuery + "\')");
 			Result[1] = database.getResult().getString(1); // Year-to-date total
 			return Result;
 	    }
@@ -86,32 +80,14 @@ public class Report
 			return null;
 	    }
 	}
-	private static String[] numberOfSuccessfulSearches(int Month, int Year, boolean Success)
+	private static String[] numberOfSearchesWithID(int Month, int Year)
 	{
 		try
 	    {
 			String[] Result = new String[2];
-			database.query("SELECT COUNT(ID) FROM `Searches` " + monthlyRange(Month, Year) + " AND `Success` = " + Success);
+			database.query("SELECT COUNT(ID) FROM `Transactions` " + monthlyRange(Month, Year) + " AND (`Type` = \'" + TransactionLogger.PDQPatientRegistryFindCandidatesQuery + "\') AND `InputValue1` <> \'\'");
 			Result[0] = database.getResult().getString(1); // Monthly total
-			database.query("SELECT COUNT(ID) FROM `Searches` " + yearToDateRange(Month, Year) + " AND `Success` = " + Success);
-			Result[1] = database.getResult().getString(1); // Year-to-date total
-			return Result;
-	    }
-	    catch (Exception e)
-	    {
-	    	System.err.println("Got an exception!");
-	    	System.err.println(e.getMessage());
-			return null;
-	    }
-	}
-	private static String[] numberOfSearchesWithID(int Month, int Year, boolean Success)
-	{
-		try
-	    {
-			String[] Result = new String[2];
-			database.query("SELECT COUNT(ID) FROM `Searches` " + monthlyRange(Month, Year) + " AND `Success` = " + Success + " AND `VUHID_ID` = true");
-			Result[0] = database.getResult().getString(1); // Monthly total
-			database.query("SELECT COUNT(ID) FROM `Searches` " + yearToDateRange(Month, Year) + " AND `Success` = " + Success + " AND `VUHID_ID` = true");
+			database.query("SELECT COUNT(ID) FROM `Transactions` " + yearToDateRange(Month, Year) + " AND (`Type` = \'" + TransactionLogger.PDQPatientRegistryFindCandidatesQuery + "\') AND `InputValue1` <> \'\'");
 			Result[1] = database.getResult().getString(1); // Year-to-date total
 			return Result;
 	    }

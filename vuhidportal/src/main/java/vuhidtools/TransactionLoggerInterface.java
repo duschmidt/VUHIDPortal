@@ -20,13 +20,12 @@ package vuhidtools;
  * 				there also an overloaded function which does not take previous_transaction; values is the list of inputs (from left to right) then the output,
  * 				for example VUHID transaction 5: values[0] is the VUHID ID, values[1] is the reason, values[2] is the returned status code.
  * 				Returns the transaction row ID (in database).
- * 					cases 1, 10, 11, 12, 13, 14 (New OVID, PIX PatientRegistryRecordRevised, PIX PatientRegistryRecordAdded, PIX PatientRegistryGetIdentifiersQuery, PIX PatientRegistryDuplicatesResolved, PDQ PatientRegistryFindCandidatesQuery) do not have an input value.
- * 					cases 2, 3, 6 (New PVID, VUHID ID Status, Request data locations) take 1 input value (values[0] is the PC).
+ * 					cases 1, 10, 11, 12, 13 (New OVID, PIX PatientRegistryRecordRevised, PIX PatientRegistryRecordAdded, PIX PatientRegistryGetIdentifiersQuery, PIX PatientRegistryDuplicatesResolved) do not have an input value.
+ * 					cases 2, 3, 6, 14 (New PVID, VUHID ID Status, Request data locations, PDQ PatientRegistryFindCandidatesQuery) take 1 input value (values[0] is the PC or the VUHID ID).
  * 					cases 4, 5, 7 (Retire ID, Terminate ID, Replace ID) take 2 input values (values[0] is the VUHID ID, values[1] is the reason)
  * 					case 8 (VUHID Retirement/Termination Notice) takes 5 input values (values[0] is the VUHID ID, values[1] is the action taken, values[2] is the URL of the EMPI that has requested the change, values[3] is the time stamp, values[4] is the reason)
  * 					case 9 (VUHID Replacement Notice) takes 5 input values (values[0] is the old VUHID ID, values[1] is the new VUHID ID, values[2] is the URL of the EMPI that has requested the change, values[3] is the time stamp, values[4] is the reason)
- * setTransactionCompleted: set the input transaction row ID's (ID is returned by log) status to Completed, and also takes the return value if available.
- * logSearch: log the search information, VUHID_ID is true when the search is performed with a VUHID ID, Success if true when the search is performed successfully.
+ * setTransactionCompleted: set the input transaction row ID's (ID is returned by log) status to Completed, and also takes the return value if available
  * report: generate the report Excel file, FileLocation must contain file name and the extension e.g. "C:\\Test.xls", Month and Year are the month and year that user specifies.
  */
 public interface TransactionLoggerInterface
@@ -36,7 +35,9 @@ public interface TransactionLoggerInterface
 	public int newTransaction(int type, String previous_transaction);
 	public int newTransaction(int type);
 	public void setTransactionCompleted(int ID, String return_value);
+	public void setTransactionCompleted(int ID, String[] return_value);
+	public void setTransactionCompleted(int ID, boolean return_value);
+	public void setTransactionCompleted(int ID, int return_value);
 	public void setTransactionCompleted(int ID);
-	public void logSearch(boolean VUHID_ID, boolean Success);
 	public void report(String FileLocation, int Month, int Year);
 }

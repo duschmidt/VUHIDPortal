@@ -35,7 +35,6 @@ goto ask
 echo Deleting VUHID Portal tables for new content.
 %mysqlPath% -h %dbhost% -u %dbuser% --password=%dbpass% < ../sql/vuhid-portal.sql
 %mysqlPath% -h %dbhost% -u %dbuser% --password=%dbpass% -D %dbname% < ../sql/transactions.sql
-%mysqlPath% -h %dbhost% -u %dbuser% --password=%dbpass% -D %dbname% < ../sql/searches.sql
 
 :end
 echo.

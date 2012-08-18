@@ -28,6 +28,20 @@ import vuhidtools.TransactionLoggerInterface;
  */
 public class TransactionLogger implements TransactionLoggerInterface
 {
+	public static final int VUHIDNewOVID = 1;
+	public static final int VUHIDNewPVID = 2;
+	public static final int VUHIDIDStatus = 3;
+	public static final int VUHIDRetireID = 4;
+	public static final int VUHIDTerminateID = 5;
+	public static final int VUHIDRequestDataLocations = 6;
+	public static final int VUHIDReplaceID = 7;
+	public static final int VUHIDRetirementTerminationNotice = 8;
+	public static final int VUHIDReplacementNotice = 9;
+	public static final int PIXPatientRegistryRecordRevised = 10;
+	public static final int PIXPatientRegistryRecordAdded = 11;
+	public static final int PIXPatientRegistryGetIdentifiersQuery = 12;
+	public static final int PIXPatientRegistryDuplicatesResolved = 13;
+	public static final int PDQPatientRegistryFindCandidatesQuery = 14;
 	private static DatabaseHandler database = new DatabaseHandler();
 	public int newTransaction(int type, String previous_transaction, String[] values)
 	{
@@ -48,32 +62,32 @@ public class TransactionLogger implements TransactionLoggerInterface
 		}
 		switch(type)
 		{
-			case 1: // New OVID
-			case 10: // PIX PatientRegistryRecordRevised
-			case 11: // PIX PatientRegistryRecordAdded
-			case 12: // PIX PatientRegistryGetIdentifiersQuery
-			case 13: // PIX PatientRegistryDuplicatesResolved
-			case 14: // PDQ PatientRegistryFindCandidatesQuery
+			case VUHIDNewOVID:
+			case PIXPatientRegistryRecordRevised:
+			case PIXPatientRegistryRecordAdded:
+			case PIXPatientRegistryGetIdentifiersQuery:
+			case PIXPatientRegistryDuplicatesResolved:
+			case PDQPatientRegistryFindCandidatesQuery:
 			{
-				database.query("INSERT INTO `Transactions` (`Hash`, `Type`, `Time`) VALUES (\'" + Hash + "\', '1', \'" + CurrentTimeStamp + "\')");
+				database.query("INSERT INTO `Transactions` (`Hash`, `Type`, `Time`) VALUES (\'" + Hash + "\', \'" + type + "\', \'" + CurrentTimeStamp + "\')");
 				break;
 			}
-			case 2: // New PVID: values[0] is the PC
-			case 3: // VUHID ID Status: values[0] is the VUHID ID
-			case 6: // Request data locations: values[0] is the VUHID ID
+			case VUHIDNewPVID: // values[0] is the PC
+			case VUHIDIDStatus: // values[0] is the VUHID ID
+			case VUHIDRequestDataLocations: // values[0] is the VUHID ID
 			{
 				database.query("INSERT INTO `Transactions` (`Hash`, `Type`, `Time`, `InputValue1`) VALUES (\'" + Hash + "\', \'" + type + "\', \'" + CurrentTimeStamp + "\', \'" + values[0] + "\')");
 				break;
 			}
-			case 4: // Retire ID: values[0] is the VUHID ID, values[1] is the reason
-			case 5: // Terminate ID: values[0] is the VUHID ID, values[1] is the reason
-			case 7: // Replace ID: values[0] is the VUHID ID, values[1] is the reason
+			case VUHIDRetireID: // values[0] is the VUHID ID, values[1] is the reason
+			case VUHIDTerminateID: // values[0] is the VUHID ID, values[1] is the reason
+			case VUHIDReplaceID: // values[0] is the VUHID ID, values[1] is the reason
 			{
 				database.query("INSERT INTO `Transactions` (`Hash`, `Type`, `Time`, `InputValue1`, `InputValue2`) VALUES (\'" + Hash + "\', \'" + type + "\', \'" + CurrentTimeStamp + "\', \'" + values[0] + "\', \'" + values[1] + "\')");
 				break;
 			}
-			case 8: // VUHID Retirement/Termination Notice: values[0] is the VUHID ID, values[1] is the action taken, values[2] is the URL of the EMPI that has requested the change, values[3] is the time stamp, values[4] is the reason
-			case 9: // VUHID Replacement Notice: values[0] is the old VUHID ID, values[1] is the new VUHID ID, values[2] is the URL of the EMPI that has requested the change, values[3] is the time stamp, values[4] is the reason
+			case VUHIDRetirementTerminationNotice: // values[0] is the VUHID ID, values[1] is the action taken, values[2] is the URL of the EMPI that has requested the change, values[3] is the time stamp, values[4] is the reason
+			case VUHIDReplacementNotice: // values[0] is the old VUHID ID, values[1] is the new VUHID ID, values[2] is the URL of the EMPI that has requested the change, values[3] is the time stamp, values[4] is the reason
 			{
 				database.query("INSERT INTO `Transactions` (`Hash`, `Type`, `Time`, `InputValue1`, `InputValue2`, `InputValue3`, `InputValue4`) VALUES (\'" + Hash + "\', \'" + type + "\', \'" + CurrentTimeStamp + "\', \'" + values[0] + "\', \'" + values[1] + "\')" + "\', \'" + values[2] + "\')" + "\', \'" + values[3] + "\')" + "\', \'" + values[4] + "\')");
 				break;
@@ -128,14 +142,34 @@ public class TransactionLogger implements TransactionLoggerInterface
 		database.query("UPDATE `Transactions` SET `ReturnValue` = \'" + return_value + "\' WHERE `ID` = \'" + ID + "\'");
 		database.query("UPDATE `Transactions` SET `Completed` = True WHERE `ID` = \'" + ID + "\'");
 	}
+	public void setTransactionCompleted(int ID, String[] return_value)
+	{
+		String result = null;
+		for(String s : return_value)
+		{
+			result += s;
+			result += "\n";
+		}
+		setTransactionCompleted(ID, result);
+	}
+	public void setTransactionCompleted(int ID, boolean return_value)
+	{
+		if(return_value)
+		{
+			setTransactionCompleted(ID, "true");
+		}
+		else
+		{
+			setTransactionCompleted(ID, "false");
+		}
+	}
+	public void setTransactionCompleted(int ID, int return_value)
+	{
+		setTransactionCompleted(ID, Integer.toString(return_value));
+	}
 	public void setTransactionCompleted(int ID)
 	{
 		setTransactionCompleted(ID, "");
-	}
-	public void logSearch(boolean VUHID_ID, boolean Success)
-	{
-		String CurrentTimeStamp = SHA1Calculator.getCurrentTimeStamp();
-		database.query("INSERT INTO `Searches` (`Time`, `VUHID_ID`, `Success`) VALUES (\'" + CurrentTimeStamp + "\', \'" + VUHID_ID + "\', \'" + Success + "\')");
 	}
 	public void report(String FileLocation, int Month, int Year)
 	{
