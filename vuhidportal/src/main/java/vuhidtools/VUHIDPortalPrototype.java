@@ -13,11 +13,12 @@ package vuhidtools;
  *
  */
 public class VUHIDPortalPrototype {
-    private static final Configuration config = new Configuration();
-    private static final AuthenticationManager am = new AuthenticationManager(config);
+    //PI: private static final Configuration config = new Configuration();
+    //PI: private static final AuthenticationManager am = new AuthenticationManager(config);
 
     //add new VuHID Sender to test methods
-    private static final VUHIDSender vuhidsend = new VUHIDSender();
+    //PI: private static final VUHIDSender vuhidsend = new VUHIDSender();
+    private static final VUHIDPortal portal = new VUHIDPortal();
 
     //UNCOMMENT ROUTINES BELOW TO TEST EACH VUHID TRANSACTION
     //MAKE SURE THAT AN ID IS GENERATED FIRST BEFORE ROUTINE THAT RETIRES/TERMINATES IT IS CALLED
@@ -28,7 +29,8 @@ public class VUHIDPortalPrototype {
         //section to test getStatusOfID routine
         int temp = 0;
         try {
-            temp = vuhidsend.getStatusOfID("0000000000000009.523079864000000");
+            //PI: temp = vuhidsend.getStatusOfID("0000000000000009.523079864000000");
+            temp = portal.getStatusOfID("0000000000000009.523079864000000");
         } catch (Exception e) {
             e.printStackTrace();
         }
