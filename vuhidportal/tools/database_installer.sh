@@ -114,6 +114,7 @@ full_install()
 	echo "VUHID Portal database"
 	$MYDB < ../sql/vuhid-portal.sql &> /dev/null
 	$MYDBD < ../sql/transactions.sql &> /dev/null
+	$MYDBD < ../sql/searches.sql &> /dev/null
 }
 
 # End of the script

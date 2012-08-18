@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
- package vuhidtools;
+package vuhidtools;
 
  /**
  * @author Long Phan
@@ -35,4 +35,6 @@ public interface TransactionLoggerInterface
 	public int newTransaction(int type);
 	public void setTransactionCompleted(int ID, String return_value);
 	public void setTransactionCompleted(int ID);
+	public void logSearch(boolean VUHID_ID, boolean Success);
+	public void report(String FileLocation, int Month, int Year);
 }
