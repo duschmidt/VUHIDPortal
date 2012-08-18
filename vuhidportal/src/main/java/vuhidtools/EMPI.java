@@ -16,7 +16,7 @@ public class EMPI implements PIXInterface,PDQInterface
          return false;
       for (int i = 0; i < P_List.size(); i++)
       {
-         if (P.match(P_List.get(i)))
+         if (Patient.match(P,P_List.get(i)))
          {
             P_List.set(i, P);   //Replaces P_List[i] with P
 		      return true;
@@ -37,7 +37,7 @@ public class EMPI implements PIXInterface,PDQInterface
       ArrayList<String> s = new ArrayList<String>();
       for (int i = 0; i < P_List.size(); i++)
       {
-         if (P.match(P_List.get(i)))
+         if (Patient.match(P,P_List.get(i)))
          {
             //Add IDs
             s.add(P_List.get(i).VUHID_ID);
@@ -57,7 +57,7 @@ public class EMPI implements PIXInterface,PDQInterface
       //Currently replaces all matches
       for (int i = 0; i < P_List.size(); i++)
       {
-         if (P1.match(P_List.get(i)))
+         if (Patient.match(P1,P_List.get(i)))
          {
             P_List.set(i, P2);
             Made_a_Change = true;  //make this line "return true" if you want it to change only one element
@@ -71,7 +71,7 @@ public class EMPI implements PIXInterface,PDQInterface
       ArrayList<Patient> list = new ArrayList<Patient>();
       for (int i = 0; i < P_List.size(); i++)
       {
-         if (P.match(P_List.get(i)))
+         if (Patient.match(P,P_List.get(i)))
          {
             list.add(P_List.get(i));
          }
