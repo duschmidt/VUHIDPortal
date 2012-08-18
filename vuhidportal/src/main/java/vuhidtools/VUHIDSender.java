@@ -378,7 +378,8 @@ public class VUHIDSender implements VUHIDSenderInterface{
 
     //chg'd Interface to match VuHID Transaction doc
     //public String getReplacementID() throws Exception {
-    public String getReplacementID(String idToReplace, String reason) {
+    //PI: (ADDED 'throws Exception') public String getReplacementID(String idToReplace, String reason) {
+    public String getReplacementID(String idToReplace, String reason) throws Exception {
         //old stub test section
         String prefix = "0123456789012345"; //16 digits for prefix
         String checkDigits = "01234567";    //8 check digits
