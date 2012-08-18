@@ -7,8 +7,10 @@ public class EMPI implements PIXInterface,PDQInterface
    {
       //Populate P_List
       P_List = new ArrayList<Patient>();
-      P_List.add(new Patient("Dustin", "Schmidt", "000001", null));
-      P_List.add(new Patient("Peter", "Inslee", "000002", null));
+      //PI: (REPLACED LAST ARG WITH BOOLEAN FOR 'DECEASED') P_List.add(new Patient("Dustin", "Schmidt", "000001", null));
+      P_List.add(new Patient("Dustin", "Schmidt", "000001", false));
+      //PI: (REPLACED LAST ARG WITH BOOLEAN FOR 'DECEASED') P_List.add(new Patient("Peter", "Inslee", "000002", null));
+      P_List.add(new Patient("Peter", "Inslee", "000002", false));
    }
 
 	public boolean PatientRegistryRecordRevised(Patient P){

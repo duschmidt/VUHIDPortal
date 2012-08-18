@@ -29,12 +29,14 @@ public class Patient
    {
    }
 
-   public Patient(String FN, String LN, String Vid)
+   //PI: (ADDED 4th ARG; BOOLEAN FOR 'DECEASED') public Patient(String FN, String LN, String Vid)
+   public Patient(String FN, String LN, String Vid, boolean tf)
    {
       FirstName = FN;
       LastName = LN;
       VUHID_ID = Vid;
-      //deceased = tf;
+      //PI: (UNCOMMENTED THIS.) //deceased = tf;
+      deceased = tf;
    }
 
    public Patient(String FN, String LN, String Vid, String birthdate, String gd, String e_mail, String phoneNum,
@@ -64,6 +66,7 @@ public class Patient
       heightInches       = height;
       deceased           = TF;
    }
+/* //PI: (REPLACED ALL 'this' REFERENCES WITH NEW FIRST ARG 'P1') 
    public boolean match(Patient P){
       // Should return true if all none-null fields of 'this' Patient (first, last name, etc)
       //  matches all non-null fields of Patient P
@@ -112,6 +115,58 @@ public class Patient
       else if (this.heightInches != P.heightInches)
          return false;
       else if (this.deceased != P.deceased)
+         return false;
+      return true;
+   }*/
+   //PI: (CHANGED TO 'static', AND ADDED A SECOND ARG) public boolean match(Patient P1, Patient P2){
+   public static boolean match(Patient P1, Patient P2){
+      // Should return true if all none-null fields of 'this' Patient (first, last name, etc)
+      //  matches all non-null fields of Patient P
+      // this.field != null && P.field != null and this.field == P.field
+      // If the above is true for all fields then the match is true
+      if (P1.CheckPatient() == false || P2.CheckPatient() == false)
+         return false;
+      else if (!P1.FirstName.equals(P2.FirstName))
+         return false;
+      else if (!P1.LastName.equals(P2.LastName))
+         return false;
+      else if (!P1.VUHID_ID.equals(P2.VUHID_ID))
+         return false;
+      else if (!P1.DOB.equals(P2.DOB))
+         return false;
+      else if (!P1.gender.equals(P2.gender))
+         return false;
+      else if (!P1.email.equals(P2.email))
+         return false;
+      else if (!P1.phoneNumber.equals(P2.phoneNumber))
+         return false;
+      else if (!P1.address.equals(P2.address))
+         return false;
+      else if (!P1.city.equals(P2.city))
+         return false;
+      else if (!P1.state.equals(P2.state))
+         return false;
+      else if (!P1.zip.equals(P2.zip))
+         return false;
+      else if (!P1.EMPIId.equals(P2.EMPIId))
+         return false;
+      else if (!P1.bloodType.equals(P2.bloodType))
+         return false;
+      else if (!P1.bedID.equals(P2.bedID))
+         return false;
+      else if (!P1.contactFirstName.equals(P2.contactFirstName))
+         return false;
+      else if (!P1.contactLastName.equals(P2.contactLastName))
+         return false;
+      else if (!P1.contactPhoneNumber.equals(P2.contactPhoneNumber))
+         return false;
+      else if (!P1.contactAddress.equals(P2.contactAddress))
+         return false;
+      else if (P1.weightLbs != P2.weightLbs)
+         return false;
+      else if (P1.heightInches != P2.heightInches)
+         return false;
+      else if (P1.deceased != P2.deceased)
          return false;
       return true;
    }
