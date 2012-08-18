@@ -12,7 +12,7 @@
  * You should have received a copy of the GNU General Public License along with
  * this program. If not, see <http://www.gnu.org/licenses/>.
  */
- package vuhidtools;
+package vuhidtools;
 
  /**
  * @author Long Phan
@@ -25,7 +25,9 @@
  * 					cases 4, 5, 7 (Retire ID, Terminate ID, Replace ID) take 2 input values (values[0] is the VUHID ID, values[1] is the reason)
  * 					case 8 (VUHID Retirement/Termination Notice) takes 5 input values (values[0] is the VUHID ID, values[1] is the action taken, values[2] is the URL of the EMPI that has requested the change, values[3] is the time stamp, values[4] is the reason)
  * 					case 9 (VUHID Replacement Notice) takes 5 input values (values[0] is the old VUHID ID, values[1] is the new VUHID ID, values[2] is the URL of the EMPI that has requested the change, values[3] is the time stamp, values[4] is the reason)
- * setTransactionCompleted: set the input transaction row ID's (ID is returned by log) status to Completed, and also takes the return value if available
+ * setTransactionCompleted: set the input transaction row ID's (ID is returned by log) status to Completed, and also takes the return value if available.
+ * logSearch: log the search information, VUHID_ID is true when the search is performed with a VUHID ID, Success if true when the search is performed successfully.
+ * report: generate the report Excel file, FileLocation must contain file name and the extension e.g. "C:\\Test.xls", Month and Year are the month and year that user specifies.
  */
 public interface TransactionLoggerInterface
 {
@@ -35,4 +37,6 @@ public interface TransactionLoggerInterface
 	public int newTransaction(int type);
 	public void setTransactionCompleted(int ID, String return_value);
 	public void setTransactionCompleted(int ID);
+	public void logSearch(boolean VUHID_ID, boolean Success);
+	public void report(String FileLocation, int Month, int Year);
 }

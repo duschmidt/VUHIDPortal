@@ -58,7 +58,7 @@ public class SHA1Calculator
     }
     public static String getCurrentTimeStamp()
     {
-        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS"); 
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
         Date now = new Date(); 
         String strDate = sdfDate.format(now); 
         return strDate; 
