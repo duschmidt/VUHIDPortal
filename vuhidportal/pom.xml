@@ -39,6 +39,8 @@
         <configuration>
           <archive>
             <manifest>
+              <!-- PI: ADDED LINE BELOW TO INCLUDE 'Main-Class' IN MANIFEST, TO MAKE JAR EXECUTABLE. -->
+              <mainClass>vuhidtools.VUHIDPortalPrototype</mainClass>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
             </manifest>
             <manifestEntries>
