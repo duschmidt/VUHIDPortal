@@ -24,6 +24,10 @@
     <defaultGoal>assembly:assembly</defaultGoal>
     <finalName>${project.artifactId}-${project.version}</finalName>
     <testResources>
+      <!-- PI: ADDED 3 LINES BELOW TO MAKE CERTIFICATE RESOURCES AVAILABLE. -->
+      <testResource>
+        <directory>certificates</directory>
+      </testResource>
       <testResource>
         <directory>config</directory>
       </testResource>
