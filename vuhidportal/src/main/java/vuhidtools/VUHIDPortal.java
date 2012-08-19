@@ -12,9 +12,11 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
 {
    private EMPI EMPIService = null;
    private VUHIDSender VSender = null;
-   private TransactionLogger logger = new TransactionLogger();
+   private TransactionLogger logger = null;
 
    public VUHIDPortal() {
+      Config.loadConfiguration(); //PI: (NEED TO LOAD CONFIGURATION BEFORE DOING ANYTHING ELSE)
+      logger = new TransactionLogger();  //PI: (TRANSACTIONS MUST BE LOGGED ASAP)
       EMPIService = new EMPI();
       VSender = new VUHIDSender();
    }
