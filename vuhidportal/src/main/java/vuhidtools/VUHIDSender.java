@@ -37,7 +37,7 @@ import java.util.Map;
 public class VUHIDSender implements VUHIDSenderInterface{
 
     //Configuration file passed to AuthenticationManager with many setup parameters
-    private static final Configuration config = new Configuration();
+    private static final Config config = new Config(); //PI: (Changed configuration class to "Config" instead of "Configuration")
     private static final AuthenticationManager am = new AuthenticationManager(config);
 
 

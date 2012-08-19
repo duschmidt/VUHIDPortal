@@ -30,11 +30,11 @@ public class AuthenticationManager {
     private static TrustManager[] trustManagers;
 
     //BH: ADDED THIS AND SET IT TO PASSED IN CONFIG FILE IN CONSTRUCTOR
-    private static Configuration configuration;
+    private static Config configuration;  //PI: (Changed configuration class to "Config" instead of "Configuration")
 
     AuthenticationManager() {}
 
-    AuthenticationManager(Configuration config) {
+    AuthenticationManager(Config config) {  //PI: (Changed configuration class to "Config" instead of "Configuration")
         try {
             //create key and trust managers
             createKeyManagers(config.getKeyStoreFileName(), config.getKeyStorePassword(), config.getAlias());
