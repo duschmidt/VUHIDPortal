@@ -25,13 +25,17 @@ public class EMPI implements PIXInterface,PDQInterface
    }
 
    //Edits an existing Patient's information. 
-   //Does so by replacing the existing one with the one passed in
+   //Does so by replacing the existing ones with the one passed in
 	public boolean PatientRegistryRecordRevised(Patient P){
       if (P == null)
          return false;
+      
+      Patient Search_Patient = new Patient();      //Patient used for searching
+      Search_Patient.VUHID_ID = P.VUHID_ID;        //Only search by VUHID_ID
+      
       for (int i = 0; i < P_List.size(); i++)
       {
-         if (Patient.match(P,P_List.get(i)))
+         if (Patient.match(Search_Patient,P_List.get(i)))
          {
             P_List.set(i, P);   //Replaces P_List[i] with P
 		      return true;
@@ -51,17 +55,17 @@ public class EMPI implements PIXInterface,PDQInterface
    //Gets all of the VUHID IDs belonging to a Patient P.
    public ArrayList<String> PatientRegistryGetIdentifiersQuery(Patient P)
    {
-      ArrayList<String> s = new ArrayList<String>();
+      ArrayList<String> IDs = new ArrayList<String>();
       for (int i = 0; i < P_List.size(); i++)
       {
          if (Patient.match(P,P_List.get(i)))
          {
             //Add IDs
-            s.add(P_List.get(i).VUHID_ID);
+            IDs.add(P_List.get(i).VUHID_ID);
          }
       }
       
-      return s;
+      return IDs;
    }
 
    //Takes two patients, takes all instances of P1 in P_list and replaces it with P2
