@@ -1,16 +1,31 @@
 package vuhidtools;
 import java.util.ArrayList;
 
+//This class emulates what we believe the EMPI does.
+
 public class EMPI implements PIXInterface,PDQInterface
 {
+   private ArrayList<Patient> P_List;     //List of patients 
+
    EMPI()
    {
-      //Populate P_List
       P_List = new ArrayList<Patient>();
+
+      //Populate P_List
       P_List.add(new Patient("Dustin", "Schmidt", "000001", null));
       P_List.add(new Patient("Peter", "Inslee", "000002", null));
+      P_List.add(new Patient("Teja", "Pitla", "000003", null));
+      P_List.add(new Patient("Robert", "Hickey", "000004", null));
+      P_List.add(new Patient("Vy", "Le", "000005", null));
+      P_List.add(new Patient("Long", "Phan", "000006", null));
+      P_List.add(new Patient("Damon", "Liang", "000007", null));
+      P_List.add(new Patient("Bart", "Massey", "000008", null));
+      P_List.add(new Patient("Jen", "Henni", "000009", null));
+      P_List.add(new Patient("Barry", "Hieb", "000010", null));
    }
 
+   //Edits an existing Patient's information. 
+   //Does so by replacing the existing one with the one passed in
 	public boolean PatientRegistryRecordRevised(Patient P){
       if (P == null)
          return false;
@@ -25,6 +40,7 @@ public class EMPI implements PIXInterface,PDQInterface
 		return false;
 	}
 
+   //Adds a Patient to the ArrayList P_List
    public boolean PatientRegistryRecordAdded(Patient P)
    {
       if (P == null)
@@ -32,6 +48,7 @@ public class EMPI implements PIXInterface,PDQInterface
       return P_List.add(P);
    }
 
+   //Gets all of the VUHID IDs belonging to a Patient P.
    public ArrayList<String> PatientRegistryGetIdentifiersQuery(Patient P)
    {
       ArrayList<String> s = new ArrayList<String>();
@@ -47,6 +64,7 @@ public class EMPI implements PIXInterface,PDQInterface
       return s;
    }
 
+   //Takes two patients, takes all instances of P1 in P_list and replaces it with P2
    public boolean PatientRegistryDuplicatesResolved(Patient P1, Patient P2)
    {
       boolean Made_a_Change = false;   //return value
@@ -67,6 +85,7 @@ public class EMPI implements PIXInterface,PDQInterface
    }
 
    //PDQ Function
+   //Searchs for any patients matching P. 
    public ArrayList<Patient> PatientRegistryFindCandidatesQuery(Patient P) {
       ArrayList<Patient> list = new ArrayList<Patient>();
       for (int i = 0; i < P_List.size(); i++)
@@ -78,7 +97,4 @@ public class EMPI implements PIXInterface,PDQInterface
       }
       return list;
    }
-
-   private ArrayList<Patient> P_List;
-
 }
