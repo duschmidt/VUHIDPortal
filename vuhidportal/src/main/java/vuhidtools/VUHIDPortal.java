@@ -1,11 +1,12 @@
 package vuhidtools;
 
 import vuhidtools.logger.TransactionLogger;
+import java.util.ArrayList;
 
 public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInterface
 {
-   private PDQ PDQService = null;
-   private PIX PIXService = null;
+   private PDQInterface PDQService = null;
+   private PIXInterface PIXService = null;
    private VUHIDSender VSender = null;
    private TransactionLogger logger = new TransactionLogger();
 
@@ -33,11 +34,11 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
       return result;
    }
 
-   public String[] PatientRegistryGetIdentifiersQuery(Patient P)
+   public ArrayList<String> PatientRegistryGetIdentifiersQuery(Patient P)
    {
-      int TransactionID = logger.newTransaction(TransactionLogger.PIXPatientRegistryGetIdentifiersQuery);
-	  String[] result = PIXService.PatientRegistryGetIdentifiersQuery(P);
-	  logger.setTransactionCompleted(TransactionID, result);
+      //int TransactionID = logger.newTransaction(TransactionLogger.PIXPatientRegistryGetIdentifiersQuery);
+	  ArrayList<String> result = PIXService.PatientRegistryGetIdentifiersQuery(P);
+	  //logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
@@ -49,7 +50,7 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
       return result;
    }
 
-   public Patient[] PatientRegistryFindCandidatesQuery(Patient P)
+   public ArrayList<Patient> PatientRegistryFindCandidatesQuery(Patient P)
    {
 	  String[] values = new String[1];
 	  values[0] = P.VUHID_ID;
