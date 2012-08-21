@@ -40,4 +40,3 @@ public interface VUHIDSenderInterface {
     public boolean  getIsWellFormed(String ID) throws Exception;
     public String   getPrivacyClass(String ID) throws Exception;
 };
->>>>>>> vuhid_maven_RH_VUHIDSender_stub
