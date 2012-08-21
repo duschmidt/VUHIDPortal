@@ -55,7 +55,7 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
 	  String[] values = new String[1];
 	  values[0] = P.VUHID_ID;
       int TransactionID = logger.newTransaction(TransactionLogger.PDQPatientRegistryFindCandidatesQuery, values);
-	  Patient[] result = PDQService.PatientRegistryFindCandidatesQuery(P);
+	  ArrayList<Patient> result = PDQService.PatientRegistryFindCandidatesQuery(P);
 	  logger.setTransactionCompleted(TransactionID);
       return result;
    }
