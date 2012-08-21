@@ -11,8 +11,9 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
 
    public VUHIDPortal()
    {
-      PDQService = new PDQ();
-      PIXService = new PIX();
+      EMPI empi = new EMPI();
+      PDQService = empi;
+      PIXService = empi;
       VSender = new VUHIDSender();
    }
 
