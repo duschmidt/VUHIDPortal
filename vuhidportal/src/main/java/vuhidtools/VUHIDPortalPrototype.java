@@ -13,11 +13,9 @@ package vuhidtools;
  *
  */
 public class VUHIDPortalPrototype {
-    private static final Configuration config = new Configuration();
-    private static final AuthenticationManager am = new AuthenticationManager(config);
 
     //add new VuHID Sender to test methods
-    private static final VUHIDSender vuhidsend = new VUHIDSender();
+    private static final VUHIDPortal vuhidsend = new VUHIDPortal();
 
     //UNCOMMENT ROUTINES BELOW TO TEST EACH VUHID TRANSACTION
     //MAKE SURE THAT AN ID IS GENERATED FIRST BEFORE ROUTINE THAT RETIRES/TERMINATES IT IS CALLED
