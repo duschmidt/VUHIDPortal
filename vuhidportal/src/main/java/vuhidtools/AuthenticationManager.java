@@ -22,8 +22,8 @@ import java.util.Enumeration;
  *
  */
 public class AuthenticationManager {
-    //private static final boolean debug = true; //turns on printKeyStoreInfo routine below
-    private static final boolean debug = false;
+    private static final boolean debug = true; //turns on printKeyStoreInfo routine below
+    //private static final boolean debug = false;
 
     private static KeyManager[] keyManagers;
 
@@ -80,10 +80,12 @@ public class AuthenticationManager {
             throws CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException, KeyManagementException {
 
         //create Inputstream to keystore file
-        java.io.InputStream inputStream = new java.io.FileInputStream(keyStoreFileName);
+        //java.io.InputStream inputStream = new java.io.FileInputStream(keyStoreFileName);
+        java.io.InputStream inputStream = AuthenticationManager.class.getClassLoader().getResourceAsStream(keyStoreFileName);
 
         //create keystore object, load it with keystorefile data
         //KeyStore keyStore = KeyStore.getInstance("JKS"); // RH: chg'd to below
+        System.out.println(configuration.getTrustStoreFormat());
         KeyStore keyStore = KeyStore.getInstance(configuration.getTrustStoreFormat());
         keyStore.load(inputStream, keyStorePassword == null ? null : keyStorePassword.toCharArray());
 
@@ -106,7 +108,9 @@ public class AuthenticationManager {
     private static void createTrustManagers(String trustStoreFileName, String trustStorePassword)
             throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
         //create Inputstream to truststore file
-        java.io.InputStream inputStream = new java.io.FileInputStream(trustStoreFileName);
+        //java.io.InputStream inputStream = new java.io.FileInputStream(trustStoreFileName);
+        java.io.InputStream inputStream = AuthenticationManager.class.getClassLoader().getResourceAsStream(trustStoreFileName);
+
         //create keystore object, load it with truststorefile data
         //KeyStore trustStore = KeyStore.getInstance("JKS"); // RH: chg'd to below
         KeyStore trustStore = KeyStore.getInstance(configuration.getTrustStoreFormat());
