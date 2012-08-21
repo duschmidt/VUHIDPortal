@@ -41,7 +41,6 @@ public class Config extends PropertyLoader
 {
     public static final String  DB_CONFIGURATION_FILE = "config/server.properties";
     public static final String  VUHID_CONFIGURATION_FILE = "config/vuhid.properties";
-    public static final String  EMPI_CONFIGURATION_FILE = "config/empi.properties";
 
     // Database server configuration
     public static String        DATABASE_DRIVER;
@@ -180,127 +179,127 @@ public class Config extends PropertyLoader
 
     // ***************  GETTERS  **************************************************************************
 
-    public String getAlias() {
+    public static String getAlias() {
         return alias;
     }
 
-    public String getVuhidServerHostName() {
+    public static String getVuhidServerHostName() {
         return vuhidServerHostName;
     }
 
-    public String getKeystoreCPVAlgorithm() {
+    public static String getKeystoreCPVAlgorithm() {
         return keystoreCPVAlgorithm;
     }
 
-    public String getKeyStoreFileName() {
+    public static String getKeyStoreFileName() {
         return keyStoreFileName;
     }
 
-    public String getKeystoreFormat() {
+    public static String getKeystoreFormat() {
         return keystoreFormat;
     }
 
-    public String getKeyStorePassword() {
+    public static String getKeyStorePassword() {
         return keyStorePassword;
     }
 
-    public String getTrustStoreCPVAlgorithm() {
+    public static String getTrustStoreCPVAlgorithm() {
         return trustStoreCPVAlgorithm;
     }
 
-    public String getTrustStoreFileName() {
+    public static String getTrustStoreFileName() {
         return trustStoreFileName;
     }
 
-    public String getTrustStoreFormat() {
+    public static String getTrustStoreFormat() {
         return trustStoreFormat;
     }
 
-    public String getTrustStorePassword() {
+    public static String getTrustStorePassword() {
         return trustStorePassword;
     }
 
-    public String getSecurityProtocol() {
+    public static String getSecurityProtocol() {
         return securityProtocol;
     }
 
-    public String getFromHeaderValue() {
+    public static String getFromHeaderValue() {
         return fromHeaderValue;
     }
 
-    public String getUserAgentHeaderValue() {
+    public static String getUserAgentHeaderValue() {
         return userAgentHeaderValue;
     }
 
     // ***************  SETTERS  **************************************************************************
 
-    public boolean setAlias(String alias) {
+    public static boolean setAlias(String argAlias) {
         // TODO:  check for well formedness, maybe other validation?
         // if (alias is valid) {
-            this.alias = alias;
+            alias = argAlias;
             return true;
         // } else {
         //     return false;
         // }
     }
 
-    public boolean setVuhidServerHostName(String vuhidServerHostName) {
-        this.vuhidServerHostName = vuhidServerHostName;
+    public static boolean setVuhidServerHostName(String argVuhidServerHostName) {
+        vuhidServerHostName = argVuhidServerHostName;
         return true;
     }
 
-    public boolean setKeystoreCPVAlgorithm(String keystoreCPVAlgorithm) {
-        this.keystoreCPVAlgorithm = keystoreCPVAlgorithm;
+    public static boolean setKeystoreCPVAlgorithm(String argkeystoreCPVAlgorithm) {
+        keystoreCPVAlgorithm = argkeystoreCPVAlgorithm;
         return true;
     }
 
-    public boolean setKeyStoreFileName(String keyStoreFileName) {
-        this.keyStoreFileName = keyStoreFileName;
+    public static boolean setKeyStoreFileName(String argkeyStoreFileName) {
+        keyStoreFileName = argkeyStoreFileName;
         return true;
     }
 
-    public boolean setKeystoreFormat(String keystoreFormat) {
-        this.keystoreFormat = keystoreFormat;
+    public static boolean setKeystoreFormat(String argkeystoreFormat) {
+        keystoreFormat = argkeystoreFormat;
         return true;
     }
 
-    public boolean setKeyStorePassword(String keyStorePassword) {
-        this.keyStorePassword = keyStorePassword;
+    public static boolean setKeyStorePassword(String argkeyStorePassword) {
+        keyStorePassword = argkeyStorePassword;
         return true;
     }
 
-    public boolean setTrustStoreCPVAlgorithm(String trustStoreCPVAlgorithm) {
-        this.trustStoreCPVAlgorithm = trustStoreCPVAlgorithm;
+    public static boolean setTrustStoreCPVAlgorithm(String argtrustStoreCPVAlgorithm) {
+        trustStoreCPVAlgorithm = argtrustStoreCPVAlgorithm;
         return true;
     }
 
-    public boolean setTrustStoreFileName(String trustStoreFileName) {
-        this.trustStoreFileName = trustStoreFileName;
+    public static boolean setTrustStoreFileName(String argtrustStoreFileName) {
+        trustStoreFileName = argtrustStoreFileName;
         return true;
     }
 
-    public boolean setTrustStoreFormat(String trustStoreFormat) {
-        this.trustStoreFormat = trustStoreFormat;
+    public static boolean setTrustStoreFormat(String argtrustStoreFormat) {
+        trustStoreFormat = argtrustStoreFormat;
         return true;
     }
 
-    public boolean setTrustStorePassword(String trustStorePassword) {
-        this.trustStorePassword = trustStorePassword;
+    public static boolean setTrustStorePassword(String argtrustStorePassword) {
+        trustStorePassword = argtrustStorePassword;
         return true;
     }
 
-    public boolean setSecurityProtocol(String securityProtocol) {
-        this.securityProtocol = securityProtocol;
+    public static boolean setSecurityProtocol(String argsecurityProtocol) {
+        securityProtocol = argsecurityProtocol;
         return true;
     }
 
-    public boolean setFromHeaderValue(String fromHeaderValue) {
-        this.fromHeaderValue = fromHeaderValue;
+    public static boolean setFromHeaderValue(String argfromHeaderValue) {
+        fromHeaderValue = argfromHeaderValue;
         return true;
     }
 
-    public boolean setUserAgentHeaderValue(String userAgentHeaderValue) {
-        this.userAgentHeaderValue = userAgentHeaderValue;
+    public static boolean setUserAgentHeaderValue(String arguserAgentHeaderValue) {
+        userAgentHeaderValue = arguserAgentHeaderValue;
         return true;
     }
 }
