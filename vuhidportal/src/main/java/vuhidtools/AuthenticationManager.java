@@ -80,7 +80,22 @@ public class AuthenticationManager {
             throws CertificateException, IOException, KeyStoreException, NoSuchAlgorithmException, UnrecoverableKeyException, KeyManagementException {
 
         //create Inputstream to keystore file
-        java.io.InputStream inputStream = new java.io.FileInputStream(keyStoreFileName);
+        java.io.InputStream inputStream = null;
+        try{//attempt to load the key store as a regular file
+            inputStream = new java.io.FileInputStream(keyStoreFileName);
+        }
+        catch (FileNotFoundException e){
+            //keystore file not found, attempt to load a resource within the package
+            System.out.println("Unable to load key store as file, attempting to load as resource");
+            try{
+                inputStream = AuthenticationManager.class.getClassLoader().getResourceAsStream(keyStoreFileName);
+                if (inputStream == null) throw new Exception("no resource found");
+            }
+            catch (Exception er){
+                System.out.println("Unable to load key store resource " + keyStoreFileName);
+                System.exit(1);
+            }
+        }
 
         //create keystore object, load it with keystorefile data
         //KeyStore keyStore = KeyStore.getInstance("JKS"); // RH: chg'd to below
@@ -105,8 +120,25 @@ public class AuthenticationManager {
 
     private static void createTrustManagers(String trustStoreFileName, String trustStorePassword)
             throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+        
         //create Inputstream to truststore file
-        java.io.InputStream inputStream = new java.io.FileInputStream(trustStoreFileName);
+        java.io.InputStream inputStream = null;
+        try{//attempt to load the key store as a regular file
+            inputStream = new java.io.FileInputStream(trustStoreFileName);
+        }
+        catch (FileNotFoundException e){
+             System.out.println("Unable to load trust store as file, attempting to load as resource");
+            //keystore file not found, attempt to load a resource within the package
+            try{
+                inputStream = AuthenticationManager.class.getClassLoader().getResourceAsStream(trustStoreFileName);
+                if (inputStream == null) throw new Exception("no resource found");
+            }
+            catch (Exception er){
+                System.out.println("Unable to load trust store file " + trustStoreFileName);
+                System.exit(1);
+            }
+        }
+
         //create keystore object, load it with truststorefile data
         //KeyStore trustStore = KeyStore.getInstance("JKS"); // RH: chg'd to below
         KeyStore trustStore = KeyStore.getInstance(configuration.getTrustStoreFormat());
