@@ -18,7 +18,7 @@ public class VUHIDPortalPrototype {
 
     //add new VuHID Sender to test methods
     //PI: private static final VUHIDSender vuhidsend = new VUHIDSender();
-    private static final VUHIDPortal portal = new VUHIDPortal();
+    private static VUHIDPortal portal = new VUHIDPortal();
 
     //UNCOMMENT ROUTINES BELOW TO TEST EACH VUHID TRANSACTION
     //MAKE SURE THAT AN ID IS GENERATED FIRST BEFORE ROUTINE THAT RETIRES/TERMINATES IT IS CALLED
@@ -26,7 +26,7 @@ public class VUHIDPortalPrototype {
 
     public static void main(String[] args) {
 
-        //section to test getStatusOfID routine
+/*        //section to test getStatusOfID routine
         int temp = 0;
         try {
             //PI: temp = vuhidsend.getStatusOfID("0000000000000009.523079864000000");
@@ -35,16 +35,20 @@ public class VUHIDPortalPrototype {
             e.printStackTrace();
         }
         System.out.println("\nResponse code for check of ID should be 200; is: " + temp);
+*/
 
-
-/*        //section to test getNewOVID routine
+        //section to test getNewOVID routine
         String temp = null;
         try {
-            temp = vuhidsend.getNewOVID();
+            //temp = vuhidsend.getNewOVID();
+            temp = portal.getNewOVID();
+            System.out.println(portal.getStatusOfID(temp));
+            System.out.println(portal.retireID(temp,"Testing retire"));
+            System.out.println(portal.getStatusOfID(temp));
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("\nResponse from getNewOVID routine: " + temp);*/
+        System.out.println("\nResponse from getNewOVID routine: " + temp);
 
 
 /*        //section to test getNewPVID routine
