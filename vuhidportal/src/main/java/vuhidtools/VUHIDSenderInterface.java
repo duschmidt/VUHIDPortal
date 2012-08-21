@@ -28,7 +28,7 @@ public interface VUHIDSenderInterface {
 
 
     //public String   getReplacementID() throws Exception;
-    public String getReplacementID(String idToReplace, String reason);
+    public String getReplacementID(String idToReplace, String reason) throws Exception;
 
 
     //changed interface orig Team version to match VuHID Transaction doc
