@@ -40,6 +40,16 @@
         <directory>src/test/resources</directory>
       </testResource>
     </testResources>
+
+    <!-- DS: Added _ lines below to include resources directory -->
+    <resources>
+        <!-- regular resource processsing for everything except logback.xml -->
+        <resource>
+            <directory>src/main/resources</directory>
+        </resource>
+    </resources>
+
+
     <plugins>
 	  <plugin>
         <groupId>org.apache.maven.plugins</groupId>
