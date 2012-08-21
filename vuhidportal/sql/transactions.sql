@@ -12,9 +12,11 @@ CREATE TABLE `transactions` (
   `Type` tinyint(4) NOT NULL,
   `Time` datetime NOT NULL default '0000-00-00 00:00:00',
   `Completed` boolean NOT NULL default false,
-  `ReturnValue` longtext collate utf8_bin,
-  `InputValue1` longtext collate utf8_bin NOT NULL,
-  `InputValue2` longtext collate utf8_bin NOT NULL,
+  `ReturnValue` longtext collate utf8_bin default '',
+  `InputValue1` longtext collate utf8_bin default '',
+  `InputValue2` longtext collate utf8_bin default '',
+  `InputValue3` longtext collate utf8_bin default '',
+  `InputValue4` longtext collate utf8_bin default '',
   PRIMARY KEY  (`ID`),
   KEY `Hash` (`Hash`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin PACK_KEYS=0 AUTO_INCREMENT=1 ;

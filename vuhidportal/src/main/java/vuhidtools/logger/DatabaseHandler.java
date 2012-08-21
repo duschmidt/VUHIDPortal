@@ -28,7 +28,7 @@ public class DatabaseHandler
 		static Connection db_connection;
 		static Statement stmt;
 		static ResultSet rs;
-	public static void connect()
+	public void connect()
 	{
 		try
 	    {
@@ -44,7 +44,7 @@ public class DatabaseHandler
 	    	System.err.println(e.getMessage());
 	    }
 	}
-	public static void query(String query)
+	public void query(String query)
 	{
 		try
 	    {
@@ -74,17 +74,17 @@ public class DatabaseHandler
 	    	System.err.println(e.getMessage());
 	    }
 	}
-	public static void disconnect()
+	public void disconnect()
 	{
 		try { rs.close(); } catch (Exception e) { /* ignored */ } 
 	    try { stmt.close(); } catch (Exception e) { /* ignored */ } 
 	    try { db_connection.close(); } catch (Exception e) { /* ignored */ } 
 	}
-	public static Connection getConnection()
+	public Connection getConnection()
 	{
 		return db_connection;
 	}
-	public static ResultSet getResult()
+	public ResultSet getResult()
 	{
 		return rs;
 	}
