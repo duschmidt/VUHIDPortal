@@ -15,6 +15,7 @@ public class VUHIDPortalTester {
             e.printStackTrace();
         }
         System.out.println("\nResponse code for check of ID should be 200; is: " + temp);
-       }
+       
     }//end main()
+
 }
