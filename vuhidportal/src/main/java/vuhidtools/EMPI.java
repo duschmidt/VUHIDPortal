@@ -7,7 +7,7 @@ public class EMPI implements PIXInterface,PDQInterface
 {
    private ArrayList<Patient> P_List;     //List of patients 
 
-   EMPI()
+   public EMPI()
    {
       P_List = new ArrayList<Patient>();
 
@@ -49,7 +49,15 @@ public class EMPI implements PIXInterface,PDQInterface
    {
       if (P == null)
          return false;
-      return P_List.add(P);
+      if (P_List.contains(P))
+      {
+         System.out.println("Patient already added");
+         return false;
+      }
+      else
+      {
+         return P_List.add(P);
+      }
    }
 
    //Gets all of the VUHID IDs belonging to a Patient P.
@@ -100,5 +108,13 @@ public class EMPI implements PIXInterface,PDQInterface
          }
       }
       return list;
+   }
+   
+   public void Print()
+   {
+      for (int i = 0; i < P_List.size(); i++)
+      {
+         System.out.println(P_List.get(i).First_Name);
+      }
    }
 }
