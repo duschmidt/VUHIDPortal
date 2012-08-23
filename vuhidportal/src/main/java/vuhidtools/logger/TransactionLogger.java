@@ -17,8 +17,8 @@ package vuhidtools.logger;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import vuhidtools.Config;
 import vuhidtools.TransactionLoggerInterface;
 
 /**
@@ -143,6 +143,16 @@ public class TransactionLogger implements TransactionLoggerInterface
 		database.query("UPDATE `Transactions` SET `Completed` = True WHERE `ID` = \'" + ID + "\'");
 	}
 	public void setTransactionCompleted(int ID, String[] return_value)
+	{
+		String result = null;
+		for(String s : return_value)
+		{
+			result += s;
+			result += "\n";
+		}
+		setTransactionCompleted(ID, result);
+	}
+	public void setTransactionCompleted(int ID, ArrayList<String> return_value)
 	{
 		String result = null;
 		for(String s : return_value)
