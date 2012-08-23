@@ -26,6 +26,10 @@ import java.util.Map;
  *              Changed Interface to retireID routine; see below for changes
  *              Changed rev of Interface as well
  *              Walled off the print routines in methods => if(debug=true)
+ *      1.5     Forgot "throws Exception" on getReplacementID => added here and in Interface
+ *              Got terminateID working
+ *      1.6     Got getDataLocations working with "200" SUCCESS but no return URLs
+ *              wrote getReplacementID but still VUHID server says is not valid
  *
  */
 
@@ -41,7 +45,7 @@ public class VUHIDSender implements VUHIDSenderInterface{
     private static final AuthenticationManager am = new AuthenticationManager(config);
 
 
-    boolean debug = false;
+    boolean debug = true;
 
     /**
      *
@@ -129,19 +133,10 @@ public class VUHIDSender implements VUHIDSenderInterface{
             e.printStackTrace();
         }
 
-        //debug;
-/*        if (connection.getResponseCode()==200) {
-            return "New OVID request successful." ;
-        } else {
-            return "New OVID request not successful.";
-        }*/
-
         return responseStrings[0];
 
     }
 
-
-    //******* !!!  NEED TO CHANGE INTERFACE? NEED PASSED IN privacyClass?
 
     /**
      *
@@ -231,13 +226,6 @@ public class VUHIDSender implements VUHIDSenderInterface{
             e.printStackTrace();
         }
 
-        //debug;
-/*        if (connection.getResponseCode()==200) {
-            return "New OVID request successful." ;
-        } else {
-            return "New OVID request not successful.";
-        }*/
-
         return responseStrings[0];
 
     }
@@ -249,13 +237,11 @@ public class VUHIDSender implements VUHIDSenderInterface{
         try {
             // create key and trust managers, then initialize the ssl context with their data
             SSLSocketFactory factory = am.getSSLSocketFactory();
+
             // communicate with the server
-            //change this to incorporate passed PVID
-            //URL url = new URL("https://" + config.getVuhidServerHostName() + "/verify/0000000406190821.350181120000000");
             URL url = new URL("https://" + config.getVuhidServerHostName() + "/verify/" + ID);
 
             //define connection outside of try block so can return some of it as string
-            //HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
             connection = (HttpsURLConnection) url.openConnection();
 
             connection = (HttpsURLConnection) url.openConnection();
@@ -282,7 +268,6 @@ public class VUHIDSender implements VUHIDSenderInterface{
             e.printStackTrace();
         }
 
-        //return test;
         return connection.getResponseCode();
     }
 
@@ -360,40 +345,243 @@ public class VUHIDSender implements VUHIDSenderInterface{
             e.printStackTrace();
         }
 
-        //debug;
-/*        if (connection.getResponseCode()==200) {
-            return "New OVID request successful." ;
-        } else {
-            return "New OVID request not successful.";
-        }*/
-
         return (connection.getResponseCode());
 
     }
 
     public int terminateID(String ID, String reason) throws Exception {
-        int test = 0;
-        return test;
+
+        HttpsURLConnection connection = null;  //define here so I can return part of it outside try
+        try {
+            // create key and trust managers, then initialize the ssl context with their data
+            SSLSocketFactory factory = am.getSSLSocketFactory();
+
+            // communicate with the server
+            //URL url = new URL("https://" + config.getVuhidServerHostName() + "/retire/" + ID );
+            URL url = new URL("https://" + config.getVuhidServerHostName() + "/terminate/" + ID );
+
+
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+
+            //added
+            connection.setDoOutput(true);
+
+            connection.setRequestProperty("From", config.getFromHeaderValue());
+            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
+            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("Accept", "*/*");
+            connection.setRequestProperty("Content-Length", "32");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+
+            //needs to be here; after set connection; before OutputStreamWriter
+            connection.setSSLSocketFactory(factory);
+
+            //modified from GET request
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+
+            out.write("termination_explanation=" + reason); // Remove this for GET requests, or change as needed
+            out.close();
+
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            if (debug) {
+                System.out.println("RESPONSE CODE: " + connection.getResponseCode());
+                System.out.println("RESPONSE MESSAGE: " + connection.getResponseMessage());
+                System.out.println("RETURN MESSAGE: " + connection.getContent().toString());
+
+                String inputLine;
+
+                while ( (inputLine = in.readLine()) != null){
+                    System.out.println(inputLine);
+                }
+            }
+
+            in.close();
+
+
+            //finished, print/output results:
+            if (debug) {
+                System.out.println("RESPONSE HEADERS:");
+                for (Map.Entry<String, List<String>> header : connection.getHeaderFields().entrySet()) {
+                    System.out.println("\t" + header.getKey() + ": " + header.getValue());
+                }
+                System.out.println("DONE");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return (connection.getResponseCode());
     }
 
     //chg'd Interface to match VuHID Transaction doc
     //public String getReplacementID() throws Exception {
     public String getReplacementID(String idToReplace, String reason) {
-        //old stub test section
-        String prefix = "0123456789012345"; //16 digits for prefix
-        String checkDigits = "01234567";    //8 check digits
-        String privacyClass = "0000000";    //OVID has 7 all zero privacy class digits
-        //String test = "0123456789012345.012345670000000" ;
-        String test = prefix + "." + checkDigits + privacyClass;
-        return test;
-        //end old stub test section
+
+        int count = 10; //fixed size for String[] to read back VuHID Server response
+        String[] responseStrings = new String[count];
+
+
+        HttpsURLConnection connection = null;  //define here so I can return part of it outside try
+        try {
+            // create key and trust managers, then initialize the ssl context with their data
+            SSLSocketFactory factory = am.getSSLSocketFactory();
+
+            // communicate with the server
+            //URL url = new URL("https://" + config.getVuhidServerHostName() + "/retire/" + ID );
+            URL url = new URL("https://" + config.getVuhidServerHostName() + "/replace/" + idToReplace );
+
+            if(debug) {
+                System.out.println("URL is: " + url);
+                System.out.println("idToReplace is: " + idToReplace);
+                System.out.println("reason is: " + reason);
+            }
+
+
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+
+            //added
+            connection.setDoOutput(true);
+
+            connection.setRequestProperty("From", config.getFromHeaderValue());
+            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
+            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("Accept", "*/*");
+            connection.setRequestProperty("Content-Length", "32");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+
+            //needs to be here; after set connection; before OutputStreamWriter
+            connection.setSSLSocketFactory(factory);
+
+            //modified from GET request
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+
+            out.write("replacement_explanation=" + reason); // Remove this for GET requests, or change as needed
+            out.close();
+
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            if (debug) {
+                System.out.println("RESPONSE CODE: " + connection.getResponseCode());
+                System.out.println("RESPONSE MESSAGE: " + connection.getResponseMessage());
+                System.out.println("RETURN MESSAGE: " + connection.getContent().toString());
+
+            }
+
+            String inputLine;
+            int index = 0;
+            while ( (inputLine = in.readLine()) != null){
+                if (index < 10) {
+                    responseStrings[index] = inputLine;
+                }
+                index++;
+                if (debug) {
+                    System.out.println(inputLine);
+                }
+            }
+
+            in.close();
+
+
+            //finished, print/output results:
+            if (debug) {
+                System.out.println("RESPONSE HEADERS:");
+                for (Map.Entry<String, List<String>> header : connection.getHeaderFields().entrySet()) {
+                    System.out.println("\t" + header.getKey() + ": " + header.getValue());
+                }
+                System.out.println("DONE");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return responseStrings[0];
     }
 
     //chg'd Interface to match VuHID Transaction doc
     //public String[] getDataLocations(String ID, String response_uri) throws Exception {
     public String[] getDataLocations(String idToSearchFor) throws Exception {
-        String[] listOfReturnURLs = {"1", "2", "3", "4"};
+        //String[] listOfReturnURLs = {"1", "2", "3", "4"};
+        String[] listOfReturnURLs = new String[50];
+        //return listOfReturnURLs;
+
+        HttpsURLConnection connection = null;  //define here so I can return part of it outside try
+        try {
+            // create key and trust managers, then initialize the ssl context with their data
+            SSLSocketFactory factory = am.getSSLSocketFactory();
+
+            // communicate with the server
+            //URL url = new URL("https://" + config.getVuhidServerHostName() + "/retire/" + ID );
+            URL url = new URL("https://" + config.getVuhidServerHostName() + "/dlr/" + idToSearchFor );
+
+
+            connection = (HttpsURLConnection) url.openConnection();
+            connection.setRequestMethod("POST");
+
+            //added
+            connection.setDoOutput(true);
+
+            connection.setRequestProperty("From", config.getFromHeaderValue());
+            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
+            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("Accept", "*/*");
+            connection.setRequestProperty("Content-Length", "32");
+            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+
+            //needs to be here; after set connection; before OutputStreamWriter
+            connection.setSSLSocketFactory(factory);
+
+            //modified from GET request
+            //OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());
+
+            //out.write("termination_explanation=" + reason); // Remove this for GET requests, or change as needed
+            //out.close();
+
+
+            BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            if (debug) {
+                System.out.println("RESPONSE CODE: " + connection.getResponseCode());
+                System.out.println("RESPONSE MESSAGE: " + connection.getResponseMessage());
+                System.out.println("RETURN MESSAGE: " + connection.getContent().toString());
+            }
+
+            String inputLine;
+            int index = 0;
+            while ( (inputLine = in.readLine()) != null){
+                if (index < 50) {
+                    listOfReturnURLs[index] = inputLine;
+                }
+                index++;
+                if (debug) {
+                    System.out.println(inputLine);
+                }
+            }
+
+            in.close();
+
+
+            //finished, print/output results:
+            if (debug) {
+                System.out.println("RESPONSE HEADERS:");
+                for (Map.Entry<String, List<String>> header : connection.getHeaderFields().entrySet()) {
+                    System.out.println("\t" + header.getKey() + ": " + header.getValue());
+                }
+                System.out.println("DONE");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return listOfReturnURLs;
+
     }
 
     public boolean getIsOVID(String ID) throws Exception {
