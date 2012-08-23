@@ -6,6 +6,7 @@ package vuhidtools;
  * @version 1.1
  * Comments:    Ver 1.0 First version copied from Peter's work
  *              Ver 1.1 Changed Peter's public class vars to private and generated getter/setter methods for them
+ *              ver 1.2 Certs location changed per Team => chg'd hardwired paths to certs
  */
 public class Configuration {
 
@@ -13,7 +14,9 @@ public class Configuration {
     private static String vuhidServerHostName = "testid.vuhid.org";
 
     // Keystore parameters
-    private static String keyStoreFileName = "Certificates/PSU-VUHID-Portal.keystore";
+    //Team changed location of certs
+    //private static String keyStoreFileName = "Certificates/PSU-VUHID-Portal.keystore";
+    private static String keyStoreFileName = "src\\main\\resources\\Certificates/PSU-VUHID-Portal.keystore";
     private static String keyStorePassword = "phlegmaticone";
     private static String keystoreFormat = "JKS";  // DONE: make private, and implement getters and setters
 
@@ -22,7 +25,8 @@ public class Configuration {
     private static String keystoreCPVAlgorithm = "SunX509";  // DONE: make private, and implement getters and setters
 
     // Truststore parameters
-    private static String trustStoreFileName = "Certificates/GPII-CA.keystore";
+    //private static String trustStoreFileName = "Certificates/GPII-CA.keystore";
+    private static String trustStoreFileName = "src\\main\\resources\\Certificates/GPII-CA.keystore";
     private static String trustStorePassword = "phlegmaticone";
     private static String trustStoreFormat = "JKS";  // DONE: make private, and implement getters and setters
     // Certification Path Validation Algorithm (CPVA) for the truststore
