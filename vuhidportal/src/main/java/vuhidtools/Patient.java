@@ -6,7 +6,7 @@ public class Patient
    public String FirstName;
    public String LastName;
    public String VUHID_ID;
-   public String DOB;      //Possible make this into a date
+   public String DOB;
    public String gender;
    public String email;
    public String phoneNumber;
@@ -120,56 +120,93 @@ public class Patient
    }*/
    //PI: (CHANGED TO 'static', AND ADDED A SECOND ARG) public boolean match(Patient P1, Patient P2){
    public static boolean match(Patient P1, Patient P2){
-      // Should return true if all none-null fields of 'this' Patient (first, last name, etc)
-      //  matches all non-null fields of Patient P
-      // this.field != null && P.field != null and this.field == P.field
+      // Should return true if all none-empty fields of Patient P1 (first, last name, etc)
+      //  matches all non-empty fields of Patient P2
+      // P1.field != null && P2.field != null && P1.field == P2.field
       // If the above is true for all fields then the match is true
-      if (P1.CheckPatient() == false || P2.CheckPatient() == false)
+
+      if (P1.FirstName != null && P2.FirstName != null && 
+          !P1.FirstName.equals("") && !P2.FirstName.equals("") && 
+          !P1.FirstName.equals(P2.FirstName))
          return false;
-      else if (!P1.FirstName.equals(P2.FirstName))
+      if (P1.LastName != null && P2.LastName != null && 
+          !P1.LastName.equals("") && !P2.LastName.equals("") && 
+          !P1.LastName.equals(P2.LastName))
          return false;
-      else if (!P1.LastName.equals(P2.LastName))
+      if (P1.VUHID_ID != null && P2.VUHID_ID != null && 
+          !P1.VUHID_ID.equals("") && !P2.VUHID_ID.equals("") && 
+          !P1.VUHID_ID.equals(P2.VUHID_ID))
          return false;
-      else if (!P1.VUHID_ID.equals(P2.VUHID_ID))
+      if (P1.DOB != null && P2.DOB != null && 
+          !P1.DOB.equals("") && !P2.DOB.equals("") && 
+          !P1.DOB.equals(P2.DOB))
          return false;
-      else if (!P1.DOB.equals(P2.DOB))
+      if (P1.gender != null && P2.gender != null && 
+          !P1.gender.equals("") && !P2.gender.equals("") && 
+          !P1.gender.equals(P2.gender))
          return false;
-      else if (!P1.gender.equals(P2.gender))
+      if (P1.email != null && P2.email != null && 
+          !P1.email.equals("") && !P2.email.equals("") && 
+          !P1.email.equals(P2.email))
          return false;
-      else if (!P1.email.equals(P2.email))
+      if (P1.phoneNumber != null && P2.phoneNumber != null && 
+          !P1.phoneNumber.equals("") && !P2.phoneNumber.equals("") && 
+          !P1.phoneNumber.equals(P2.phoneNumber))
          return false;
-      else if (!P1.phoneNumber.equals(P2.phoneNumber))
+      if (P1.address != null && P2.address != null && 
+          !P1.address.equals("") && !P2.address.equals("") && 
+          !P1.address.equals(P2.address))
          return false;
-      else if (!P1.address.equals(P2.address))
+      if (P1.city != null && P2.city != null && 
+          !P1.city.equals("") && !P2.city.equals("") && 
+          !P1.city.equals(P2.city))
          return false;
-      else if (!P1.city.equals(P2.city))
+      if (P1.state != null && P2.state != null && 
+          !P1.state.equals("") && !P2.state.equals("") && 
+          !P1.state.equals(P2.state))
          return false;
-      else if (!P1.state.equals(P2.state))
+      if (P1.zip != null && P2.zip != null && 
+          !P1.zip.equals("") && !P2.zip.equals("") && 
+          !P1.zip.equals(P2.zip))
          return false;
-      else if (!P1.zip.equals(P2.zip))
+      if (P1.EMPIId != null && P2.EMPIId != null && 
+          !P1.EMPIId.equals("") && !P2.EMPIId.equals("") && 
+          !P1.EMPIId.equals(P2.EMPIId))
          return false;
-      else if (!P1.EMPIId.equals(P2.EMPIId))
+      if (P1.bloodType != null && P2.bloodType != null && 
+          !P1.bloodType.equals("") && !P2.bloodType.equals("") && 
+          !P1.bloodType.equals(P2.bloodType))
          return false;
-      else if (!P1.bloodType.equals(P2.bloodType))
+      if (P1.bedID != null && P2.bedID != null && 
+          !P1.bedID.equals("") && !P2.bedID.equals("") && 
+          !P1.bedID.equals(P2.bedID))
          return false;
-      else if (!P1.bedID.equals(P2.bedID))
+      if (P1.contactFirstName != null && P2.contactFirstName != null && 
+          !P1.contactFirstName.equals("") && !P2.contactFirstName.equals("") && 
+          !P1.contactFirstName.equals(P2.contactFirstName))
          return false;
-      else if (!P1.contactFirstName.equals(P2.contactFirstName))
+      if (P1.contactLastName != null && P2.contactLastName != null && 
+          !P1.contactLastName.equals("") && !P2.contactLastName.equals("") && 
+          !P1.contactLastName.equals(P2.contactLastName))
          return false;
-      else if (!P1.contactLastName.equals(P2.contactLastName))
+      if (P1.contactPhoneNumber != null && P2.contactLastName != null && 
+          !P1.contactPhoneNumber.equals("") && !P2.contactPhoneNumber.equals("") && 
+          !P1.contactPhoneNumber.equals(P2.contactPhoneNumber))
          return false;
-      else if (!P1.contactPhoneNumber.equals(P2.contactPhoneNumber))
+      if (P1.contactAddress != null && P2.contactAddress != null && 
+          !P1.contactAddress.equals("") && !P2.contactAddress.equals("") && 
+          !P1.contactAddress.equals(P2.contactAddress))
          return false;
-      else if (!P1.contactAddress.equals(P2.contactAddress))
+      if (P1.weightLbs != -1 && P2.weightLbs != -1 && P1.weightLbs != P2.weightLbs)
          return false;
-      else if (P1.weightLbs != P2.weightLbs)
+      if (P1.heightInches != -1 && P2.heightInches != -1 && P1.heightInches != P2.heightInches)
          return false;
-      else if (P1.heightInches != P2.heightInches)
-         return false;
-      else if (P1.deceased != P2.deceased)
+      if (P1.deceased != P2.deceased)
          return false;
       return true;
    }
+
+   //Checks if a patient is fully filled out.
    public boolean CheckPatient()
    {
       if (FirstName == null)
@@ -248,11 +285,11 @@ public class Patient
          System.out.println("Require a contact address.");
          return false;
       }
-      if (weightLbs == 0) {
+      if (weightLbs == -1) {
          System.out.println("Require weight in lbs.");
          return false;
       }
-      if (heightInches == 0) {
+      if (heightInches == -1) {
          System.out.println("Require height in inches.");
          return false;
       }
