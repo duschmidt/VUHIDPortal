@@ -18,6 +18,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
+import vuhidtools.Config;
+
 import jxl.CellView;
 import jxl.Workbook;
 import jxl.WorkbookSettings;
@@ -43,11 +45,13 @@ public class ExcelHandler
 	private WritableCellFormat timesBoldUnderline;
 	private WritableCellFormat times;
 	private WritableSheet excelSheet;
-	private String inputFile;
+	private String inputFileName;
 	
 	public void write(int Month, int Year, String[] inputLabels, String[][] inputContents) throws IOException, WriteException
 	{
-		File file = new File(inputFile);
+		//File file = new File(new File(inputFileName).getAbsolutePath().replaceAll("/", "\\\\"));
+		new File(Config.SERVER_PATH + "reports/").mkdirs(); //Create the output directory if not exist
+		File file = new File(Config.SERVER_PATH + "reports/" + inputFileName);
 		WorkbookSettings wbSettings = new WorkbookSettings();
 
 		wbSettings.setLocale(new Locale("en", "EN"));
@@ -70,9 +74,9 @@ public class ExcelHandler
 		workbook.write();
 		workbook.close();
 	}
-	public void setOutputFile(String inputFile)
+	public void setOutputFile(String inputFileName)
 	{
-		this.inputFile = inputFile;
+		this.inputFileName = inputFileName;
 	}
 	public void createLabel(WritableSheet sheet, int column, int row, String inputLabel) throws WriteException
 	{

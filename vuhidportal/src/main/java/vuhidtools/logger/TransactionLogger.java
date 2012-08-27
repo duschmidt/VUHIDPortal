@@ -17,6 +17,7 @@ package vuhidtools.logger;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import vuhidtools.Config;
 import vuhidtools.TransactionLoggerInterface;
@@ -152,6 +153,16 @@ public class TransactionLogger implements TransactionLoggerInterface
 		}
 		setTransactionCompleted(ID, result);
 	}
+	public void setTransactionCompleted(int ID, ArrayList<String> return_value)
+	{
+		String result = null;
+		for(String s : return_value)
+		{
+			result += s;
+			result += "\n";
+		}
+		setTransactionCompleted(ID, result);
+	}
 	public void setTransactionCompleted(int ID, boolean return_value)
 	{
 		if(return_value)
@@ -171,9 +182,23 @@ public class TransactionLogger implements TransactionLoggerInterface
 	{
 		setTransactionCompleted(ID, "");
 	}
-	public void report(String FileLocation, int Month, int Year)
+	public String report(int Month, int Year)
 	{
-		Report.generateReport(FileLocation, Month, Year);
+	    String FileName = null;
+		try
+		{
+			FileName = "VUHIDPortalReport-" + SHA1Calculator.SHA1(SHA1Calculator.getCurrentTimeStamp()) + ".xls";
+		}
+		catch (NoSuchAlgorithmException e)
+		{
+			e.printStackTrace();
+		}
+		catch (UnsupportedEncodingException e)
+		{
+			e.printStackTrace();
+		}
+		Report.generateReport(FileName, Month, Year);
+		return Config.SERVER_PATH.replaceFirst("applications/", "") + "reports/" + FileName;
 	}
 	/*public static void main(String[] args)
 	{
@@ -185,6 +210,7 @@ public class TransactionLogger implements TransactionLoggerInterface
 		test[2] = "output msg";
 		int ID = logger.newTransaction(1);
 		logger.setTransactionCompleted(ID, "Test return");
-		logger.report("C:\\Test.xls", 8, 2012);
+		String testurl = logger.report(8, 2012);
+		System.out.println(testurl);
 	}*/
 }

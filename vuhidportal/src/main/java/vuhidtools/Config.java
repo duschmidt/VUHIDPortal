@@ -39,6 +39,7 @@ import vuhidtools.PropertyLoader;
  */
 public class Config extends PropertyLoader
 {
+	public static final String	SERVER_PATH	= "applications/vuhid_tools/";
     public static final String  DB_CONFIGURATION_FILE = "config/server.properties";
     public static final String  VUHID_CONFIGURATION_FILE = "config/vuhid.properties";
 

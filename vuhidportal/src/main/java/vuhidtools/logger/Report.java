@@ -22,7 +22,7 @@ public class Report
 {
 	private static DatabaseHandler database = new DatabaseHandler();
 	private static ExcelHandler excel = new ExcelHandler();
-	public static void generateReport(String FileLocation, int Month, int Year)
+	public static void generateReport(String FileName, int Month, int Year)
 	{
 		try
 	    {
@@ -35,7 +35,7 @@ public class Report
 			inputContents[0] = numberOfIDsIssued(Month, Year);
 			inputContents[1] = numberOfSearches(Month, Year);
 			inputContents[2] = numberOfSearchesWithID(Month, Year);
-			excel.setOutputFile(FileLocation);
+			excel.setOutputFile(FileName);
 			excel.write(Month, Year, inputLabels, inputContents);
 	    }
 	    catch (Exception e)
