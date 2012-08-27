@@ -1,6 +1,8 @@
 package vuhidtools;
 import java.util.ArrayList;
 
+//interface for PIX
+
 public interface PIXInterface
 {
    boolean PatientRegistryRecordRevised(Patient P);
