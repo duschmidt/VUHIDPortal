@@ -39,7 +39,7 @@ import vuhidtools.PropertyLoader;
  */
 public class Config extends PropertyLoader
 {
-	public static final String	SERVER_PATH	= "applications/vuhid_tools/";
+	public static final String	SERVER_PATH	= "vuhid_tools/";
     public static final String  DB_CONFIGURATION_FILE = "config/server.properties";
     public static final String  VUHID_CONFIGURATION_FILE = "config/vuhid.properties";
 
@@ -51,19 +51,19 @@ public class Config extends PropertyLoader
     public static int           DATABASE_MAX_CONNECTIONS;
 
     // VUHID server configuration
-    private static String       vuhidServerHostName;
-    private static String       alias;
-    private static String       keystoreCPVAlgorithm;
-    private static String       keyStoreFileName;
-    private static String       keystoreFormat;
-    private static String       keyStorePassword;
-    private static String       trustStoreCPVAlgorithm;
-    private static String       trustStoreFileName;
-    private static String       trustStoreFormat;
-    private static String       trustStorePassword;
-    private static String       securityProtocol;
-    private static String       fromHeaderValue;
-    private static String       userAgentHeaderValue;
+    public static String       vuhidServerHostName;
+    public static String       alias;
+    public static String       keystoreCPVAlgorithm;
+    public static String       keyStoreFileName;
+    public static String       keystoreFormat;
+    public static String       keyStorePassword;
+    public static String       trustStoreCPVAlgorithm;
+    public static String       trustStoreFileName;
+    public static String       trustStoreFormat;
+    public static String       trustStorePassword;
+    public static String       securityProtocol;
+    public static String       fromHeaderValue;
+    public static String       userAgentHeaderValue;
 
     // TODO: EMPI server configuration (This is just tentative placeholder stuff.)
     // private static String       empiPDSService;
@@ -75,7 +75,7 @@ public class Config extends PropertyLoader
 
         // Load database server configuration
         try {
-            settings = PropertyLoader.loadProperties(DB_CONFIGURATION_FILE);
+            settings = PropertyLoader.loadProperties(SERVER_PATH + DB_CONFIGURATION_FILE);
 
             DATABASE_DRIVER = settings.getProperty("Driver", "com.mysql.jdbc.Driver");
             DATABASE_URL = settings.getProperty("URL", "jdbc:mysql://localhost/vuhid-portal");
@@ -83,12 +83,12 @@ public class Config extends PropertyLoader
             DATABASE_PASSWORD = settings.getProperty("Password", "");
             DATABASE_MAX_CONNECTIONS = Integer.parseInt(settings.getProperty("MaximumDbConnections", "10"));
         } catch (Exception e) {
-            throw new Error("Failed to Load " + DB_CONFIGURATION_FILE + " File.");
+            throw new Error("Failed to Load " + SERVER_PATH + DB_CONFIGURATION_FILE + " File.");
         }
 
         // Load VUHID server configuration
         try {
-            settings = PropertyLoader.loadProperties(VUHID_CONFIGURATION_FILE);
+            settings = PropertyLoader.loadProperties(SERVER_PATH + VUHID_CONFIGURATION_FILE);
 
             vuhidServerHostName = settings.getProperty("vuhidServerHostName", "testid.vuhid.org");
             keyStoreFileName = settings.getProperty("keyStoreFileName", "Certificates/PSU-VUHID-Portal.keystore");
@@ -104,7 +104,7 @@ public class Config extends PropertyLoader
             fromHeaderValue = settings.getProperty("fromHeaderValue", "\"Robert Hickey of CsTheDay\" <rhickey@cecs.pdx.edu>");
             userAgentHeaderValue = settings.getProperty("userAgentHeaderValue", "VUHIDPortalPrototype");
         } catch (Exception e) {
-            throw new Error("Failed to Load " + VUHID_CONFIGURATION_FILE + " File.");
+            throw new Error("Failed to Load " + SERVER_PATH + VUHID_CONFIGURATION_FILE + " File.");
         }
 
         // TODO: Load EMPI server configuration  (This is just tentative placeholder stuff.)

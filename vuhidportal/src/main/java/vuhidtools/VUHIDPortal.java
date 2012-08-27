@@ -12,11 +12,11 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
 
    public VUHIDPortal()
    {
+	  Config.loadConfiguration();
       EMPI empi = new EMPI();
       PDQService = empi;
       PIXService = empi;
       VSender = new VUHIDSender();
-      Config.loadConfiguration();
    }
    
    public String Report(int Month, int Year)

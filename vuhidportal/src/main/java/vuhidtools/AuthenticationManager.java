@@ -1,13 +1,17 @@
 package vuhidtools;
 
 import javax.net.ssl.*;
+
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 import java.security.*;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
+import java.util.Properties;
 
 
 /**
@@ -28,19 +32,13 @@ public class AuthenticationManager {
     private static KeyManager[] keyManagers;
 
     private static TrustManager[] trustManagers;
-
-    //BH: ADDED THIS AND SET IT TO PASSED IN CONFIG FILE IN CONSTRUCTOR
-    private static Configuration configuration;
-
+    
     AuthenticationManager() {}
-
-    AuthenticationManager(Configuration config) {
+    AuthenticationManager(String a) {
         try {
             //create key and trust managers
-            createKeyManagers(config.getKeyStoreFileName(), config.getKeyStorePassword(), config.getAlias());
-            createTrustManagers(config.getTrustStoreFileName(), config.getTrustStorePassword());
-            //BH: ADDED THIS
-            configuration = config; //store passed in configuration for access below
+            createKeyManagers(Config.keyStoreFileName, Config.keyStorePassword, Config.alias);
+            createTrustManagers(Config.trustStoreFileName, Config.trustStorePassword);
 
         } catch (KeyStoreException e) {
             e.printStackTrace();
@@ -61,7 +59,7 @@ public class AuthenticationManager {
         try {
             // create ssl context
             //SSLContext context = SSLContext.getInstance("TLS"); //RH: chg'd to below
-            SSLContext context = SSLContext.getInstance(configuration.getSecurityProtocol());
+            SSLContext context = SSLContext.getInstance(Config.securityProtocol);
 
             //init context with managers data
             context.init(keyManagers, trustManagers, null);
@@ -99,7 +97,7 @@ public class AuthenticationManager {
 
         //create keystore object, load it with keystorefile data
         //KeyStore keyStore = KeyStore.getInstance("JKS"); // RH: chg'd to below
-        KeyStore keyStore = KeyStore.getInstance(configuration.getTrustStoreFormat());
+        KeyStore keyStore = KeyStore.getInstance(Config.trustStoreFormat);
         keyStore.load(inputStream, keyStorePassword == null ? null : keyStorePassword.toCharArray());
 
         //DEBUG information should be removed
@@ -112,7 +110,7 @@ public class AuthenticationManager {
             //create keymanager factory and load the keystore object in it
             /* KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm()); */
             //KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509"); // I changed this; RH: changed this to below
-            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(configuration.getTrustStoreCPVAlgorithm()); // I tried to change this; Wouldn't let me
+            KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance(Config.trustStoreCPVAlgorithm); // I tried to change this; Wouldn't let me
             keyManagerFactory.init(keyStore, keyStorePassword == null ? null : keyStorePassword.toCharArray());
             keyManagers = keyManagerFactory.getKeyManagers();
         }
@@ -141,7 +139,7 @@ public class AuthenticationManager {
 
         //create keystore object, load it with truststorefile data
         //KeyStore trustStore = KeyStore.getInstance("JKS"); // RH: chg'd to below
-        KeyStore trustStore = KeyStore.getInstance(configuration.getTrustStoreFormat());
+        KeyStore trustStore = KeyStore.getInstance(Config.trustStoreFormat);
         trustStore.load(inputStream, trustStorePassword == null ? null : trustStorePassword.toCharArray());
         //DEBUG information should be removed
         if (debug) {
@@ -150,7 +148,7 @@ public class AuthenticationManager {
         //create trustmanager factory and load the keystore object in it
         /* TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm()); */
         //TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("SunX509"); RH: chg'd to below
-        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(configuration.getTrustStoreCPVAlgorithm());
+        TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance(Config.trustStoreCPVAlgorithm);
         trustManagerFactory.init(trustStore);
         trustManagers = trustManagerFactory.getTrustManagers();
     }

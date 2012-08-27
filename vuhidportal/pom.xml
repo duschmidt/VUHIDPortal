@@ -24,15 +24,16 @@
       <artifactId>jxl</artifactId>
       <version>2.6.12</version>
 	</dependency>
+	<dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.21</version>
+	</dependency>
   </dependencies>
   <build>
     <defaultGoal>assembly:assembly</defaultGoal>
     <finalName>${project.artifactId}-${project.version}</finalName>
     <testResources>
-      <!-- PI: ADDED 3 LINES BELOW TO MAKE CERTIFICATE RESOURCES AVAILABLE. -->
-      <testResource>
-        <directory>certificates</directory>
-      </testResource>
       <testResource>
         <directory>config</directory>
       </testResource>
@@ -40,16 +41,11 @@
         <directory>src/test/resources</directory>
       </testResource>
     </testResources>
-
-    <!-- DS: Added _ lines below to include resources directory -->
     <resources>
-        <!-- regular resource processsing for everything except logback.xml -->
-        <resource>
-            <directory>src/main/resources</directory>
-        </resource>
+      <resource>
+        <directory>src/main/resources</directory>
+      </resource>
     </resources>
-
-
     <plugins>
 	  <plugin>
         <groupId>org.apache.maven.plugins</groupId>
@@ -58,7 +54,7 @@
         <configuration>
           <archive>
             <manifest>
-              <!-- PI: ADDED LINE BELOW TO INCLUDE 'Main-Class' IN MANIFEST, TO MAKE JAR EXECUTABLE. -->
+			<!-- PI: ADDED LINE BELOW TO INCLUDE 'Main-Class' IN MANIFEST, TO MAKE JAR EXECUTABLE. -->
               <mainClass>vuhidtools.VUHIDPortalPrototype</mainClass>
               <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
             </manifest>

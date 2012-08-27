@@ -24,87 +24,88 @@ public class VUHIDPortalPrototype {
     //MAKE SURE THAT AN ID IS GENERATED FIRST BEFORE ROUTINE THAT RETIRES/TERMINATES IT IS CALLED
     //IDs ARE HARDCODED IN MANY OF THE RETIRE/TERMINATE/STATUS ROUTINES
 
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
 
         //section to test getStatusOfID routine
-/*        int temp = 0;
+        int temp1 = 0;
         try {
-            temp = vuhidsend.getStatusOfID("0000000409177781.095215510000000");
+            temp1 = vuhidsend.getStatusOfID("0000000409177781.095215510000000");
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("\nResponse code for check of ID should be 200; is: " + temp);*/
+        System.out.println("\nResponse code for check of ID should be 200; is: " + temp1);
 
 
         //section to test getNewOVID routine
-/*        String temp = null;
+        String temp2 = null;
         try {
-            temp = vuhidsend.getNewOVID();
+            temp2 = vuhidsend.getNewOVID();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("\nResponse from getNewOVID routine: " + temp);*/
+        System.out.println("\nResponse from getNewOVID routine: " + temp2);
 
 
         //section to test getNewPVID routine
-/*        String temp = null;
+        String temp3 = null;
         try {
-            temp = vuhidsend.getNewPVID("4000000");     //as per email "4000000" is good for test PC
+            temp3 = vuhidsend.getNewPVID("4000000");     //as per email "4000000" is good for test PC
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("\nResponse from getNewPVID routine: " + temp);*/
+        System.out.println("\nResponse from getNewPVID routine: " + temp3);
 
 
-/*        //section to test retireID routine
-        String reason = "PVID was used by CsTheDay only for software testing.";
-        String ID = "0000000000000008.023042694000000"; //just generated this in getNewPVID above
-        int temp = 0;
+        //section to test retireID routine
+        String reason4 = "PVID was used by CsTheDay only for software testing.";
+        String ID4 = "0000000000000008.023042694000000"; //just generated this in getNewPVID above
+        int temp4 = 0;
         try {
-            temp = vuhidsend.retireID(ID, reason );
+            temp4 = vuhidsend.retireID(ID4, reason4 );
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("HTTP Response from retireID routine, should be 200: " + temp);*/
+        System.out.println("HTTP Response from retireID routine, should be 200: " + temp4);
 
 
         //section to test terminateID routine
-/*        String reason = "OVID was used by CsTheDay only for software testing.";
-        String ID = "0000000000000009.523079864000000"; //just generated this in getNewPVID above
-        int temp = 0;
+        String reason5 = "OVID was used by CsTheDay only for software testing.";
+        String ID5 = "0000000000000009.523079864000000"; //just generated this in getNewPVID above
+        int temp5 = 0;
         try {
-            temp = vuhidsend.terminateID(ID, reason);
+            temp5 = vuhidsend.terminateID(ID5, reason5);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("HTTP Response from terminateID routine, should be 200: " + temp);*/
+        System.out.println("HTTP Response from terminateID routine, should be 200: " + temp5);
 
 
         //section to test getReplacementID routine
-/*        String temp = null;
-        String reason = "OVID was used by CsTheDay only for software testing.";
-        String ID = "0000000409177781.095215510000000"; //just generated this in getNewPVID above
+        String temp6 = null;
+        String reason6 = "OVID was used by CsTheDay only for software testing.";
+        String ID6 = "0000000409177781.095215510000000"; //just generated this in getNewPVID above
         try {
-            temp = vuhidsend.getReplacementID(ID, reason);
+            temp6 = vuhidsend.getReplacementID(ID6, reason6);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        System.out.println("\nResponse from getReplacementID routine: " + temp);*/
+        System.out.println("\nResponse from getReplacementID routine: " + temp6);
 
         //section to test getDataLocations routine
-        String temp[] = null;
-        String ID = "0000000409177781.095215510000000"; //just generated this in getNewPVID above
+        String temp7[] = null;
+        String ID7 = "0000000000000016.157994624000000"; //just generated this in getNewPVID above
         try {
-            temp = vuhidsend.getDataLocations(ID);
+            temp7 = vuhidsend.getDataLocations(ID7);
         } catch (Exception e) {
             e.printStackTrace();
         }
         int index = 0;
-        for (String i:temp) {
-            System.out.println("\nResponse from getReplacementID routine: " + temp[index]);
+        for (String i:temp7) {
+            System.out.println("\nResponse from getReplacementID routine: " + temp7[index]);
             index++;
         }
 
 
     }//end main()
+*/
 }

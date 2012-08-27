@@ -1,7 +1,8 @@
 package vuhidtools;
 import java.lang.String;
+import java.io.Serializable;
 
-public class Patient
+public class Patient implements Serializable
 {
    public String FirstName;
    public String LastName;

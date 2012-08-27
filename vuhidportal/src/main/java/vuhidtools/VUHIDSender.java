@@ -41,9 +41,7 @@ import java.util.Map;
 public class VUHIDSender implements VUHIDSenderInterface{
 
     //Configuration file passed to AuthenticationManager with many setup parameters
-    private static final Configuration config = new Configuration();
-    private static final AuthenticationManager am = new AuthenticationManager(config);
-
+    private static final AuthenticationManager am = new AuthenticationManager(null);
 
     boolean debug = true;
 
@@ -68,7 +66,7 @@ public class VUHIDSender implements VUHIDSenderInterface{
 
             // communicate with the server
             // new ovid POST to /new
-            URL url = new URL("https://" + config.getVuhidServerHostName() + "/new" );
+            URL url = new URL("https://" + Config.vuhidServerHostName + "/new" );
 
 
             connection = (HttpsURLConnection) url.openConnection();
@@ -78,9 +76,9 @@ public class VUHIDSender implements VUHIDSenderInterface{
             //added
             connection.setDoOutput(true);
 
-            connection.setRequestProperty("From", config.getFromHeaderValue());
-            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
-            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("From", Config.fromHeaderValue);
+            connection.setRequestProperty("User-Agent", Config.userAgentHeaderValue);
+            connection.setRequestProperty("Host", Config.vuhidServerHostName);
             connection.setRequestProperty("Accept", "*/*");
             connection.setRequestProperty("Content-Length", "32");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -161,7 +159,7 @@ public class VUHIDSender implements VUHIDSenderInterface{
             // communicate with the server
             // new pvid POST to /new/privacyClass where last part is passed in 7 digit ASCII string
             // as per email Barry Hieb; test Privacy Class of 4000000 is OK
-            URL url = new URL("https://" + config.getVuhidServerHostName() + "/new/" + privacyClass );
+            URL url = new URL("https://" + Config.vuhidServerHostName + "/new/" + privacyClass );
 
 
             connection = (HttpsURLConnection) url.openConnection();
@@ -171,9 +169,9 @@ public class VUHIDSender implements VUHIDSenderInterface{
             //added
             connection.setDoOutput(true);
 
-            connection.setRequestProperty("From", config.getFromHeaderValue());
-            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
-            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("From", Config.fromHeaderValue);
+            connection.setRequestProperty("User-Agent", Config.userAgentHeaderValue);
+            connection.setRequestProperty("Host", Config.vuhidServerHostName);
             connection.setRequestProperty("Accept", "*/*");
             connection.setRequestProperty("Content-Length", "32");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -239,16 +237,16 @@ public class VUHIDSender implements VUHIDSenderInterface{
             SSLSocketFactory factory = am.getSSLSocketFactory();
 
             // communicate with the server
-            URL url = new URL("https://" + config.getVuhidServerHostName() + "/verify/" + ID);
+            URL url = new URL("https://" + Config.vuhidServerHostName + "/verify/" + ID);
 
             //define connection outside of try block so can return some of it as string
             connection = (HttpsURLConnection) url.openConnection();
 
             connection = (HttpsURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
-            connection.setRequestProperty("From", config.getFromHeaderValue());
-            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
-            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("From", Config.fromHeaderValue);
+            connection.setRequestProperty("User-Agent", Config.userAgentHeaderValue);
+            connection.setRequestProperty("Host", Config.vuhidServerHostName);
             connection.setRequestProperty("Accept", "*/*");
             connection.setRequestProperty("Content-Length", "32");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -286,7 +284,7 @@ public class VUHIDSender implements VUHIDSenderInterface{
             SSLSocketFactory factory = am.getSSLSocketFactory();
 
             // communicate with the server
-            URL url = new URL("https://" + config.getVuhidServerHostName() + "/retire/" + ID );
+            URL url = new URL("https://" + Config.vuhidServerHostName + "/retire/" + ID );
 
 
             connection = (HttpsURLConnection) url.openConnection();
@@ -296,9 +294,9 @@ public class VUHIDSender implements VUHIDSenderInterface{
             //added
             connection.setDoOutput(true);
 
-            connection.setRequestProperty("From", config.getFromHeaderValue());
-            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
-            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("From", Config.fromHeaderValue);
+            connection.setRequestProperty("User-Agent", Config.userAgentHeaderValue);
+            connection.setRequestProperty("Host", Config.vuhidServerHostName);
             connection.setRequestProperty("Accept", "*/*");
             connection.setRequestProperty("Content-Length", "32");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -358,7 +356,7 @@ public class VUHIDSender implements VUHIDSenderInterface{
 
             // communicate with the server
             //URL url = new URL("https://" + config.getVuhidServerHostName() + "/retire/" + ID );
-            URL url = new URL("https://" + config.getVuhidServerHostName() + "/terminate/" + ID );
+            URL url = new URL("https://" + Config.vuhidServerHostName + "/terminate/" + ID );
 
 
             connection = (HttpsURLConnection) url.openConnection();
@@ -367,9 +365,9 @@ public class VUHIDSender implements VUHIDSenderInterface{
             //added
             connection.setDoOutput(true);
 
-            connection.setRequestProperty("From", config.getFromHeaderValue());
-            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
-            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("From", Config.fromHeaderValue);
+            connection.setRequestProperty("User-Agent", Config.userAgentHeaderValue);
+            connection.setRequestProperty("Host", Config.vuhidServerHostName);
             connection.setRequestProperty("Accept", "*/*");
             connection.setRequestProperty("Content-Length", "32");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -432,7 +430,7 @@ public class VUHIDSender implements VUHIDSenderInterface{
 
             // communicate with the server
             //URL url = new URL("https://" + config.getVuhidServerHostName() + "/retire/" + ID );
-            URL url = new URL("https://" + config.getVuhidServerHostName() + "/replace/" + idToReplace );
+            URL url = new URL("https://" + Config.vuhidServerHostName + "/replace/" + idToReplace );
 
             if(debug) {
                 System.out.println("URL is: " + url);
@@ -447,9 +445,9 @@ public class VUHIDSender implements VUHIDSenderInterface{
             //added
             connection.setDoOutput(true);
 
-            connection.setRequestProperty("From", config.getFromHeaderValue());
-            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
-            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("From", Config.fromHeaderValue);
+            connection.setRequestProperty("User-Agent", Config.userAgentHeaderValue);
+            connection.setRequestProperty("Host", Config.vuhidServerHostName);
             connection.setRequestProperty("Accept", "*/*");
             connection.setRequestProperty("Content-Length", "32");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -518,7 +516,7 @@ public class VUHIDSender implements VUHIDSenderInterface{
 
             // communicate with the server
             //URL url = new URL("https://" + config.getVuhidServerHostName() + "/retire/" + ID );
-            URL url = new URL("https://" + config.getVuhidServerHostName() + "/dlr/" + idToSearchFor );
+            URL url = new URL("https://" + Config.vuhidServerHostName + "/dlr/" + idToSearchFor );
 
 
             connection = (HttpsURLConnection) url.openConnection();
@@ -527,9 +525,9 @@ public class VUHIDSender implements VUHIDSenderInterface{
             //added
             connection.setDoOutput(true);
 
-            connection.setRequestProperty("From", config.getFromHeaderValue());
-            connection.setRequestProperty("User-Agent", config.getUserAgentHeaderValue());
-            connection.setRequestProperty("Host", config.getVuhidServerHostName());
+            connection.setRequestProperty("From", Config.fromHeaderValue);
+            connection.setRequestProperty("User-Agent", Config.userAgentHeaderValue);
+            connection.setRequestProperty("Host", Config.vuhidServerHostName);
             connection.setRequestProperty("Accept", "*/*");
             connection.setRequestProperty("Content-Length", "32");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");

@@ -33,11 +33,11 @@
     </fileSet>
     <fileSet>
       <directory>config/</directory>
-      <outputDirectory>config/</outputDirectory>
+      <outputDirectory>vuhid_tools/config/</outputDirectory>
     </fileSet>
 	<fileSet>
-      <directory>doc/</directory>
-      <outputDirectory>doc/</outputDirectory>
+      <directory>Certificates/</directory>
+      <outputDirectory>vuhid_tools/Certificates/</outputDirectory>
     </fileSet>
 	<fileSet>
       <directory>sql/</directory>

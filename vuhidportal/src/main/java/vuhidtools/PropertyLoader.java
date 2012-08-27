@@ -14,6 +14,7 @@
  */
 package vuhidtools;
 
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.Enumeration;
 import java.util.Locale;
@@ -86,9 +87,15 @@ public abstract class PropertyLoader
                 
                 if (! name.endsWith (SUFFIX))
                     name = name.concat (SUFFIX);
-                                
-                // Returns null on lookup failures:
-                in = loader.getResourceAsStream (name);
+                try{//attempt to load the key store as a regular file
+                    in = new java.io.FileInputStream(name);
+                }
+                catch (FileNotFoundException e){
+                	System.out.println("Unable to load " + name + " as file, attempting to load as resource");
+                    //keystore file not found, attempt to load a resource within the package
+                    	in = loader.getResourceAsStream (name);
+                    	
+                }
                 if (in != null)
                 {
                     result = new Properties ();
@@ -127,6 +134,6 @@ public abstract class PropertyLoader
     }
         
     private static final boolean THROW_ON_LOAD_FAILURE = true;
-    private static final boolean LOAD_AS_RESOURCE_BUNDLE = true;
+    private static final boolean LOAD_AS_RESOURCE_BUNDLE = false;
     private static final String SUFFIX = ".properties";
 } // End of class
