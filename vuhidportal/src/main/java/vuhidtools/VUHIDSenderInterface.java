@@ -28,8 +28,8 @@ public interface VUHIDSenderInterface {
 
 
     //public String   getReplacementID() throws Exception;
-    //PI: (ADDED 'throws Exception') public String getReplacementID(String idToReplace, String reason);
     public String getReplacementID(String idToReplace, String reason) throws Exception;
+
 
     //changed interface orig Team version to match VuHID Transaction doc
     //public String[] getDataLocations(String ID, String response_uri) throws Exception;
