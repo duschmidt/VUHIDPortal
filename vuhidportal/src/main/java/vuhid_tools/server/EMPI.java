@@ -1,5 +1,7 @@
-package vuhidtools;
+package vuhid_tools.server;
 import java.util.ArrayList;
+
+import vuhid_tools.shared.Patient;
 
 //This class emulates what we believe the EMPI does.
 

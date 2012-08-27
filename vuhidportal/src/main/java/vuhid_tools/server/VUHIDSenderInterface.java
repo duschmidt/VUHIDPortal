@@ -1,4 +1,4 @@
-package vuhidtools;
+package vuhid_tools.server;
 
 /**
  * @author Robert Hickey

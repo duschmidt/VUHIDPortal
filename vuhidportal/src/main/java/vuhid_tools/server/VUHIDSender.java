@@ -1,4 +1,4 @@
-package vuhidtools;
+package vuhid_tools.server;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLSocketFactory;

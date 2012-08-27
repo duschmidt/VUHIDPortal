@@ -1,6 +1,6 @@
-package vuhidtools;
+package vuhid_tools.server;
 
-import vuhidtools.logger.TransactionLogger;
+import vuhid_tools.shared.Patient;
 import java.util.ArrayList;
 
 public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInterface

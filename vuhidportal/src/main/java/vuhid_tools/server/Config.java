@@ -26,10 +26,11 @@
  *              Ver 1.2 2012-08-15 Peter merged code from "Configuration.java" into "Config.java" so all
  *                                 settings are managed and loaded from files by a single class.
  */
-package vuhidtools;
+package vuhid_tools.server;
 
 import java.util.Properties;
-import vuhidtools.PropertyLoader;
+
+import vuhid_tools.server.PropertyLoader;
 
 /**
  * This class contains the global VUHID Portal configuration.<br>

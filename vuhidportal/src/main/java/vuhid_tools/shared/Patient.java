@@ -1,4 +1,4 @@
-package vuhidtools;
+package vuhid_tools.shared;
 import java.lang.String;
 import java.io.Serializable;
 
