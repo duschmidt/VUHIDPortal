@@ -16,37 +16,43 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
       PDQService = empi;
       PIXService = empi;
       VSender = new VUHIDSender();
+      Config.loadConfiguration();
+   }
+   
+   public String Report(int Month, int Year)
+   {
+      return logger.report(Month, Year);
    }
 
    public boolean PatientRegistryRecordRevised(Patient P)
    {
-	  //int TransactionID = logger.newTransaction(TransactionLogger.PIXPatientRegistryRecordRevised);
+	  int TransactionID = logger.newTransaction(TransactionLogger.PIXPatientRegistryRecordRevised);
 	  boolean result = PIXService.PatientRegistryRecordRevised(P);
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
    public boolean PatientRegistryRecordAdded(Patient P)
    {
-      //int TransactionID = logger.newTransaction(TransactionLogger.PIXPatientRegistryRecordAdded);
+      int TransactionID = logger.newTransaction(TransactionLogger.PIXPatientRegistryRecordAdded);
 	  boolean result = PIXService.PatientRegistryRecordAdded(P);
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
    public ArrayList<String> PatientRegistryGetIdentifiersQuery(Patient P)
    {
-      //int TransactionID = logger.newTransaction(TransactionLogger.PIXPatientRegistryGetIdentifiersQuery);
+      int TransactionID = logger.newTransaction(TransactionLogger.PIXPatientRegistryGetIdentifiersQuery);
 	  ArrayList<String> result = PIXService.PatientRegistryGetIdentifiersQuery(P);
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
    public boolean PatientRegistryDuplicatesResolved(Patient P1, Patient P2)
    {
-     // int TransactionID = logger.newTransaction(TransactionLogger.PIXPatientRegistryDuplicatesResolved);
+	  int TransactionID = logger.newTransaction(TransactionLogger.PIXPatientRegistryDuplicatesResolved);
 	  boolean result = PIXService.PatientRegistryDuplicatesResolved(P1, P2);
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
@@ -54,17 +60,17 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
    {
 	  String[] values = new String[1];
 	  values[0] = P.VUHID_ID;
-     // int TransactionID = logger.newTransaction(TransactionLogger.PDQPatientRegistryFindCandidatesQuery, values);
+      int TransactionID = logger.newTransaction(TransactionLogger.PDQPatientRegistryFindCandidatesQuery, values);
 	  ArrayList<Patient> result = PDQService.PatientRegistryFindCandidatesQuery(P);
-	  //logger.setTransactionCompleted(TransactionID);
+	  logger.setTransactionCompleted(TransactionID);
       return result;
    }
 
    public String getNewOVID() throws Exception
    {
-      //int TransactionID = logger.newTransaction(TransactionLogger.VUHIDNewOVID);
+      int TransactionID = logger.newTransaction(TransactionLogger.VUHIDNewOVID);
 	  String result = VSender.getNewOVID();
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
@@ -72,9 +78,9 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
    {
 	  String[] values = new String[1];
 	  values[0] = privacyClass;
-      //int TransactionID = logger.newTransaction(TransactionLogger.VUHIDNewPVID, values);
+      int TransactionID = logger.newTransaction(TransactionLogger.VUHIDNewPVID, values);
 	  String result = VSender.getNewPVID(privacyClass);
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
@@ -82,9 +88,9 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
    {
 	  String[] values = new String[1];
 	  values[0] = ID;
-      //int TransactionID = logger.newTransaction(TransactionLogger.VUHIDIDStatus, values);
+      int TransactionID = logger.newTransaction(TransactionLogger.VUHIDIDStatus, values);
 	  int result = VSender.getStatusOfID(ID);
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
@@ -93,9 +99,9 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
 	  String[] values = new String[2];
 	  values[0] = ID;
 	  values[1] = reason;
-      //int TransactionID = logger.newTransaction(TransactionLogger.VUHIDRetireID, values);
+      int TransactionID = logger.newTransaction(TransactionLogger.VUHIDRetireID, values);
 	  int result = VSender.retireID(ID, reason);
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
@@ -104,9 +110,9 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
       String[] values = new String[2];
 	  values[0] = ID;
 	  values[1] = reason;
-      //int TransactionID = logger.newTransaction(TransactionLogger.VUHIDTerminateID, values);
+      int TransactionID = logger.newTransaction(TransactionLogger.VUHIDTerminateID, values);
 	  int result = VSender.terminateID(ID, reason);
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
@@ -115,9 +121,9 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
       String[] values = new String[2];
 	  values[0] = ID;
 	  values[1] = reason;
-      //int TransactionID = logger.newTransaction(TransactionLogger.VUHIDReplaceID, values);
+      int TransactionID = logger.newTransaction(TransactionLogger.VUHIDReplaceID, values);
 	  String result = VSender.getReplacementID(ID, reason);
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 
@@ -125,9 +131,9 @@ public class VUHIDPortal implements PIXInterface, PDQInterface, VUHIDSenderInter
    {
       String[] values = new String[1];
 	  values[0] = ID;
-      //int TransactionID = logger.newTransaction(TransactionLogger.VUHIDRequestDataLocations, values);
+      int TransactionID = logger.newTransaction(TransactionLogger.VUHIDRequestDataLocations, values);
 	  String[] result = VSender.getDataLocations(ID);
-	  //logger.setTransactionCompleted(TransactionID, result);
+	  logger.setTransactionCompleted(TransactionID, result);
       return result;
    }
 

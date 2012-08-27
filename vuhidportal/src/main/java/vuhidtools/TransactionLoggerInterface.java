@@ -14,6 +14,7 @@
  */
 package vuhidtools;
 
+import java.util.ArrayList;
  /**
  * @author Long Phan
  * newTransaction: type - VUHID transaction number from 1 to 14; previous_transaction - ID of the previous related transaction,
@@ -36,8 +37,9 @@ public interface TransactionLoggerInterface
 	public int newTransaction(int type);
 	public void setTransactionCompleted(int ID, String return_value);
 	public void setTransactionCompleted(int ID, String[] return_value);
+	public void setTransactionCompleted(int ID, ArrayList<String> return_value);
 	public void setTransactionCompleted(int ID, boolean return_value);
 	public void setTransactionCompleted(int ID, int return_value);
 	public void setTransactionCompleted(int ID);
-	public void report(String FileLocation, int Month, int Year);
+	public String report(int Month, int Year);
 }
