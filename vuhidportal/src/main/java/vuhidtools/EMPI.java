@@ -12,16 +12,16 @@ public class EMPI implements PIXInterface,PDQInterface
       P_List = new ArrayList<Patient>();
 
       //Populate P_List
-      P_List.add(new Patient("Dustin", "Schmidt", "000001", "false"));
-      P_List.add(new Patient("Peter", "Inslee", "000002", "false"));
-      P_List.add(new Patient("Teja", "Pitla", "000003", "false"));
-      P_List.add(new Patient("Robert", "Hickey", "000004", "false"));
-      P_List.add(new Patient("Vy", "Le", "000005", "false"));
-      P_List.add(new Patient("Long", "Phan", "000006", "false"));
-      P_List.add(new Patient("Damon", "Liang", "000007", "false"));
-      P_List.add(new Patient("Bart", "Massey", "000008", "false"));
-      P_List.add(new Patient("Jen", "Henni", "000009", "false"));
-      P_List.add(new Patient("Barry", "Hieb", "000010", "false"));
+      P_List.add(new Patient("Dustin", "Schmidt", "000001", false));
+      P_List.add(new Patient("Peter", "Inslee", "000002", false));
+      P_List.add(new Patient("Teja", "Pitla", "000003", false));
+      P_List.add(new Patient("Robert", "Hickey", "000004", false));
+      P_List.add(new Patient("Vy", "Le", "000005", false));
+      P_List.add(new Patient("Long", "Phan", "000006", false));
+      P_List.add(new Patient("Damon", "Liang", "000007", false));
+      P_List.add(new Patient("Bart", "Massey", "000008", false));
+      P_List.add(new Patient("Jen", "Henni", "000009", false));
+      P_List.add(new Patient("Barry", "Hieb", "000010", false));
    }
 
    //Edits an existing Patient's information. 
